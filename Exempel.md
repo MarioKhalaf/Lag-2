@@ -1,7 +1,6 @@
-Gruppuppgift.
+# Gruppuppgift
 
 Ett exempel på mermaid i en .md-fil.
-
 
 ```mermaid
 graph TD;
@@ -11,7 +10,7 @@ graph TD;
     C-->D;
 ```
 
-# Hello world!
+Hello world!
 
 ```python
 print("hello world")
