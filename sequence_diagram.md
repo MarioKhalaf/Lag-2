@@ -9,17 +9,20 @@ graph TD
     F --> G[Välj namn]
     G --> H[Äventyr]
     H --> I{Karta}
-    I --> J[Stor]
+    I --> J[Liten]
     I --> K[Mellan]
-    I --> L[Liten]
-    J --> M{Välj hörn}
-    K --> M{Välj hörn}
-    L --> M{Välj hörn}
-    M --> |Upp, Höger| N[Rum]
-    M --> |Ner, Höger| N
-    M --> |Upp, Vänster| N
-    M --> |Ner, Vänster| N
-    
+    I --> L[Stor]
+    J --> |Rum: 4x4|M{Välj hörn}
+    K --> |Rum: 5x5|M{Välj hörn}
+    L --> |Rum: 8x8|M{Välj hörn}
+    M --> N[Hörn 1]
+    M --> O[Hörn 2]
+    M --> P[Hörn 3]
+    M --> Q[Hörn 4]
+    N --> |Riktning| R[N, H]
+    O --> |Riktning| S[N, V]
+    P --> |Riktning| T[U, H]
+    Q --> |Riktning| U[U, V]
     
     
 ```
