@@ -24,5 +24,4 @@ graph TD
     P --> |Riktning| T[U, H]
     Q --> |Riktning| U[U, V]
     
-    
 ```
