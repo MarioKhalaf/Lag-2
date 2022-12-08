@@ -12,9 +12,9 @@ graph TD
     I --> J[Stor]
     I --> K[Mellan]
     I --> L[Liten]
-    J --> M{Välj hörn}
-    K --> M{Välj hörn}
-    L --> M{Välj hörn}
+    J --> M{Välj rum}
+    K --> M{Välj rum}
+    L --> M{Välj rum}
     M --> |Upp, Höger| N[Rum]
     M --> |Ner, Höger| N
     M --> |Upp, Vänster| N
