@@ -23,5 +23,26 @@ graph TD
     O --> |Riktning| S[N, V]
     P --> |Riktning| T[U, H]
     Q --> |Riktning| U[U, V]
-    
+    R --> V{Rum}
+    S --> V
+    T --> V
+    U --> V
+    V --> Skatt
+    V --> Monster
+    V --> Utgång
+    V --> Tomt
+    Monster --> Skatt 
+    Skatt --> Nytt_rum
+    Monster --> Game_over[Spelaren dör]
+    Game_over --> Spara_spelet
+    Monster --> Fly
+    Fly --> |tidigare rum|Besökt_rum
+    Fly --> Nytt_rum
+    Utgång --> |tidigare rum|V
+    Utgång --> Nytt_rum
+    Utgång --> Avsluta_spelet
+    Avsluta_spelet --> Spara_spelet[Spara spelet]
+    Besökt_rum --> Besökt_rum
+    Besökt_rum --> Nytt_rum
+
 ```
