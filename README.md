@@ -19,3 +19,11 @@ Bestämda program/plugin: Mermaid:
 Robert Westins dokument: <https://studentportal.nackademin.se/course/view.php?id=4169>
 
 Trello: <https://trello.com/b/1Z7Z7Z7Z/dungeon-run>
+
+
+Name: Mermaid Markdown Syntax Highlighting
+Id: bpruitt-goddard.mermaid-markdown-syntax-highlighting
+Description: Markdown syntax support for the Mermaid charting language
+Version: 1.5.0
+Publisher: Brian Pruitt-Goddard
+VS Marketplace Link: https://marketplace.visualstudio.com/items?itemName=bpruitt-goddard.mermaid-markdown-syntax-highlighting
