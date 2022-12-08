@@ -27,3 +27,10 @@ Description: Markdown syntax support for the Mermaid charting language
 Version: 1.5.0
 Publisher: Brian Pruitt-Goddard
 VS Marketplace Link: https://marketplace.visualstudio.com/items?itemName=bpruitt-goddard.mermaid-markdown-syntax-highlighting
+
+Name: Markdown Preview Mermaid Support
+Id: bierner.markdown-mermaid
+Description: Adds Mermaid diagram and flowchart support to VS Code's builtin markdown preview
+Version: 1.16.0
+Publisher: Matt Bierner
+VS Marketplace Link: https://marketplace.visualstudio.com/items?itemName=bierner.markdown-mermaid
