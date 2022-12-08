@@ -23,14 +23,14 @@ graph TD
     O --> |Riktning| S[N, V]
     P --> |Riktning| T[U, H]
     Q --> |Riktning| U[U, V]
-    R --> V{Rum}
-    S --> V
-    T --> V
-    U --> V
-    V --> Skatt
-    V --> Monster
-    V --> Utgång
-    V --> Tomt
+    R --> Nytt_rum{Nytt rum}
+    S --> Nytt_rum
+    T --> Nytt_rum
+    U --> Nytt_rum
+    Nytt_rum --> Skatt
+    Nytt_rum --> Monster
+    Nytt_rum --> Utgång
+    Nytt_rum --> Tomt
     Monster --> Skatt 
     Skatt --> Nytt_rum
     Monster --> Game_over[Spelaren dör]
