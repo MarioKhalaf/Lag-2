@@ -12,8 +12,14 @@ graph TD
     I --> J[Stor]
     I --> K[Mellan]
     I --> L[Liten]
-    J --> M[Välj hörn]
-    K --> M[Välj hörn]
-    L --> M[Välj hörn]
+    J --> M{Välj hörn}
+    K --> M{Välj hörn}
+    L --> M{Välj hörn}
+    M --> |Upp, Höger| N[Rum]
+    M --> |Ner, Höger| N
+    M --> |Upp, Vänster| N
+    M --> |Ner, Vänster| N
+    
+    
     
 ```
