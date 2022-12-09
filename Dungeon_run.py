@@ -1,5 +1,30 @@
 import json
 
+class Player:
+
+    def __init__(self) -> None:
+        self.player = {}
+
+    
+    def write_to_json(self,hero_name, hero):
+        treasury = 0
+        self.player["Name"] = hero_name
+        self.player["Character"] = hero
+        self.player["Treasury"] = treasury
+
+        with open("saved_games.json") as f:
+            data = json.load(f)
+        data["Players"].append(self.player)  
+        with open("saved_games.json", "w", encoding="utf-8") as f:  
+            f.write(json.dumps(data, indent=4))
+        
+    def check_name(self, hero_name):
+        with open("saved_games.json") as f:
+            data = json.load(f)
+        for value in data["Players"]:
+            if value["Name"] == hero_name: 
+                return True
+        return False
 
 def hero_choice(choose_hero):
     heroes = [
@@ -10,12 +35,13 @@ def hero_choice(choose_hero):
             "Attack": 6,
             "Flexibility": 4
         },
-        {"Hero": "Wizard",
-         "Iniative": 6,
-         "Endurance": 4,
-         "Attack": 9,
-         "Flexibility": 5
-         },
+        {
+            "Hero": "Wizard",
+            "Iniative": 6,
+            "Endurance": 4,
+            "Attack": 9,
+            "Flexibility": 5
+        },
         {
             "Hero": "Thief",
             "Iniative": 7,
@@ -42,46 +68,32 @@ def load_existing_account():
         if player["Name"] == load_account:  # if name of account is in there, return True
             for key, value in player.items():
                 print(f"{key}, {value}")
-        print("There is no such player saved.")
+        else:
+            print("This account does not exist")
 
+p = Player()
 def main():
-    option = input('''
-Welcome to the dungeon run!
-Choose your option and begin the adventure.
+    print("Welcome to the dungeon run!\nChoose your option and begin the adventure.\n")
+    while True:
+        option = input("1. Create a new hero\n2. Load existing hero\n3. Exit\n")
 
-1. Create a new hero
-2. Load existing hero
-
-''')
-    if option == "1":
-        choose_hero = input('''
-Choose your hero.
-
-1. The knight
-2. The Wizard
-3. The Thief
-''')
-        hero = hero_choice(choose_hero)
-        hero_name = input("Choose a name for your hero: ")
-        print(f"\nHello {hero_name}, You have chosen: ")
-        for key, value in hero.items():
-            print(f"{key}, {value}")
-
-        treasury = 0
-        player = {}
-        player["Name"] = hero_name
-        player["Character"] = hero
-        player["Treasury"] = treasury
-
-        with open("saved_games.json") as f:
-            data = json.load(f)
-        data["Players"].append(player)  # Appends to end of accounts list inside file
-        with open("saved_games.json", "w", encoding="utf-8") as f:  # write back updated file
-            f.write(json.dumps(data, indent=4))
-
-    elif option == "2":
-       load_existing_account()
-
+        if option == "1":
+            choose_hero = input('''Choose your hero.\n1. The knight\n2. The Wizard\n3. The Thief''')
+            hero = hero_choice(choose_hero)
+            while True:
+                hero_name = input("Choose a name for your hero: ")
+                if p.check_name(hero_name):
+                    print("This name already exists.")
+                else:
+                    print(f"\nHello {hero_name}, You have chosen: ")
+                    for key, value in hero.items():
+                        print(f"{key}, {value}")
+                    p.write_to_json(hero_name, hero)
+            
+        elif option == "2": 
+            load_existing_account()
+        elif option == "3":
+            exit("Goodbye!")
 
 if __name__ == "__main__":
     main()
