@@ -1,53 +1,53 @@
 # Spelrunda
 
-## Graf
+## Flowchart - Graf
 
 Graf över en spelrunda.
 
 ```mermaid
 graph TD
-    start{start} --> välj_karta{Välj karaktär}
-    start --> välj_befintlig_karaktär[välj befintlig karaktär]
-    välj_befintlig_karaktär --> äventyr
-    välj_karta --> trollkarl
-    välj_karta --> riddaren
-    välj_karta --> tjuven
-    trollkarl --> välj_namn[välj unikt namn]
-    riddaren --> välj_namn
-    tjuven --> välj_namn
-    välj_namn --> |spara automatiskt ny karaktär|äventyr{äventyr}
-    äventyr --> |Rum: 4x4|liten
-    äventyr --> |Rum: 5x5|mellan
-    äventyr --> |Rum: 8x8|stor
-    liten --> |slumpmässigt innehåll|karta
-    mellan --> |slumpmässigt innehåll|karta
-    stor --> |slumpmässigt innehåll|karta
-    karta --> välj_hörn{välj hörn}
-    välj_hörn --> hörn_1
-    välj_hörn --> hörn_2
-    välj_hörn --> hörn_3
-    välj_hörn --> hörn_4
-    hörn_1 --> riktning[välj riktning att gå]
-    hörn_2 --> riktning
-    hörn_3 --> riktning
-    hörn_4 --> riktning
-    riktning --> nytt_rum{nytt rum}
-    riktning --> besökt_rum
-    nytt_rum --> skatt
-    nytt_rum --> monster
-    nytt_rum --> utgång
-    nytt_rum --> tomt_rum
-    monster --> |vinst mot monster|skatt 
-    monster --> |vinst mot monster|besökt_rum
-    monster --> |vinst mot monster|riktning
-    monster --> |förlorar mot monster|game_over[Spelaren dör]
-    skatt --> riktning
-    game_over --> |addera skatter|spara_spelet
-    utgång --> riktning
-    utgång --> avsluta_spelet
-    avsluta_spelet --> |addera skatter|spara_spelet[Spara spelet]
-    besökt_rum --> riktning
-    tomt_rum --> riktning
+    Start{Start} --> Välj_karta{Välj karaktär}
+    Start --> Välj_befintlig_karaktär[Välj befintlig karaktär]
+    Välj_befintlig_karaktär --> Äventyr
+    Välj_karta --> Trollkarl
+    Välj_karta --> Riddaren
+    Välj_karta --> Tjuven
+    Trollkarl --> Välj_namn[Välj unikt namn]
+    Riddaren --> Välj_namn
+    Tjuven --> Välj_namn
+    Välj_namn --> |Spara automatiskt ny karaktär|Äventyr{Äventyr}
+    Äventyr --> |Rum: 4x4|Liten
+    Äventyr --> |Rum: 5x5|Mellan
+    Äventyr --> |Rum: 8x8|Stor
+    Liten --> |Slumpmässigt innehåll|Karta
+    Mellan --> |Slumpmässigt innehåll|Karta
+    Stor --> |Slumpmässigt innehåll|Karta
+    Karta --> Välj_hörn{Välj hörn}
+    Välj_hörn --> Hörn_1
+    Välj_hörn --> Hörn_2
+    Välj_hörn --> Hörn_3
+    Välj_hörn --> Hörn_4
+    Hörn_1 --> Riktning[Välj riktning att gå]
+    Hörn_2 --> Riktning
+    Hörn_3 --> Riktning
+    Hörn_4 --> Riktning
+    Riktning --> Nytt_rum{Nytt rum}
+    Riktning --> Besökt_rum
+    Nytt_rum --> Skatt
+    Nytt_rum --> Monster
+    Nytt_rum --> Utgång
+    Nytt_rum --> Tomt_rum
+    Monster --> |Vinst mot monster|Skatt 
+    Monster --> |Vinst mot monster|Besökt_rum
+    Monster --> |Vinst mot monster|Riktning
+    Monster --> |Förlorar mot monster|Game_over[Spelaren dör]
+    Skatt --> Riktning
+    Game_over --> |Addera skatter|Spara_spelet
+    Utgång --> Riktning
+    Utgång --> Avsluta_spelet
+    Avsluta_spelet --> |Addera skatter|Spara_spelet[Spara spelet]
+    Besökt_rum --> Riktning
+    Tomt_rum --> Riktning
 
 ```
 
@@ -73,23 +73,35 @@ alternativ om hen vill lämna kartan, eller stanna kvar.
 8. När ett äventyr tar slut adderas de ihopsamlade skatterna till den sparade spelkaraktären.
 Man kan alltså spela flera äventyr med samma sparade karaktär för att samla på sig skatter.
 
-## Sequence diagram
+## Graf
 
 Graf för en strid.
 
 ```mermaid
 graph TD
-    start{start} --> slå_tärning[slå tärning]
-    slå_tärning --> turordning{turordning}
-    a[beräkna initiativ = 7*t6]
-    turordning --> |högst börjar|karaktär
-    turordning --> |högst börjar|monster
-    karaktär --> attackera
-    karaktär --> fly
-    monster --> attackera
-    
-   
-
+    Start{Start} --> Slå_tärning[Slå tärning]
+    Slå_tärning --> |"Beräknar initiativ värde, t ex 7*t6"| Turordning{"Turordning(Högst börjar)"}
+    Turordning --> Karaktär
+    Turordning --> Monster
+    Monster --> Attackera
+    Karaktär --> Attackera
+    Karaktär --> Fly
+    Attackera --> Slå_tärning
+    Slå_tärning --> |"Beräknar attack värde, t ex 5*t6"| Karaktär -->|Attackerar| Monster
+    Slå_tärning --> |"Beräknar smidighets värde, t ex 3*t6"|Monster -->|Attackerar| Karaktär
+    Karaktär --> Game-over[Spelaren dör]
+    Game-over[Spelaren dör] --> Spelet_slut[Spelet slut]
+    Monster --> Monstret_dör[Monstret dör]
+    Monstret_dör[Monstret dör] --> Plocka_skatt[Plocka skatt]
+    Monstret_dör[Monstret dör] --> 
+    Ingen_skatt[Ingen skatt] --> Välj_riktning[Välj riktning att gå]
+    Plocka_skatt[Plocka skatt] --> Välj_riktning[Välj riktning att gå]
+    Fly --> Slå_tärning
+    Slå_tärning --> |"Beräknar smidighets värde, t ex 4*10 = x% chans att fly"| Fly
+    Fly --> Spelaren_lyckas[Spelaren lyckas fly]
+    Spelaren_lyckas[Spelaren lyckas fly] -->|Striden avbryts, inga skatter plockas ut, spelet sparar monster i rummet| Flyttas_till_föregående_rum[Flyttas till föregående rum]
+    Fly --> Spelaren_misslyckas[Spelaren misslyckas att fly]
+    Spelaren_misslyckas[Spelaren misslyckas att fly] --> Stannar_kvar[Stannar kvar i rummet]
 
 ```
 
