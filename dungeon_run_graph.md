@@ -1,3 +1,5 @@
+Spelrunda
+
 ```mermaid
 graph TD
     start{start} --> välj_karta{Välj karaktär}
@@ -26,22 +28,21 @@ graph TD
     hörn_3 --> riktning
     hörn_4 --> riktning
     riktning --> nytt_rum{nytt rum}
+    riktning --> besökt_rum
     nytt_rum --> skatt
     nytt_rum --> monster
     nytt_rum --> utgång
-    nytt_rum --> tomt
+    nytt_rum --> tomt_rum
     monster --> |vinst mot monster|skatt 
     monster --> |vinst mot monster|besökt_rum
-    monster --> |vinst mot monster|nytt_rum
+    monster --> |vinst mot monster|riktning
     monster --> |förlorar mot monster|game_over[Spelaren dör]
-    skatt --> nytt_rum
-    skatt --> besökt_rum
+    skatt --> riktning
     game_over --> |addera skatter|spara_spelet
-    utgång --> besökt_rum
-    utgång --> nytt_rum
+    utgång --> riktning
     utgång --> avsluta_spelet
     avsluta_spelet --> |addera skatter|spara_spelet[Spara spelet]
-    besökt_rum --> besökt_rum
-    besökt_rum --> nytt_rum
+    besökt_rum --> riktning
+    tomt_rum --> riktning
 
 ```
