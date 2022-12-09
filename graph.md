@@ -1,6 +1,6 @@
 ```mermaid
 graph TD
-    A[Start] -->B{Välj karaktär}
+    Start --> välj_karta{Välj karaktär}
     B --> D[Trollkarl]
     B --> E[Riddaren]
     B --> F[Tjuven]
