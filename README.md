@@ -4,7 +4,7 @@
 
 **Product Owner:** Robert Westin
 
-**Scrum Master:** Timmy Elf
+**Scrum Master:** Timmy Elff
 
 **Utvecklare:** Nina, Isabel, Mario, David, Daniel
 
