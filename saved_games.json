@@ -1,0 +1,15 @@
+{
+    "Players": [
+        {
+            "Name": "mario",
+            "Character": {
+                "Hero": "Knight",
+                "Iniative": 5,
+                "Endurance": 9,
+                "Attack": 6,
+                "Flexibility": 4
+            },
+            "Treasury": 0
+        }
+    ]
+}
