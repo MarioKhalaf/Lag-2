@@ -1,4 +1,5 @@
 import random
+import numpy
 
 
 class Treasure:
@@ -31,4 +32,12 @@ class Treasure:
         antal_skatter = random.randint(0, 5)
         print(antal_skatter)
         random_treasure = random.choices(treasure_list, weights=(40, 20, 15, 10, 5), k=antal_skatter)
+        print(random_treasure)
+
+    def random_treasure2(self):
+        treasure_list = ["Loose_change", "Money_bag", "Gold_jewelry", "Gemstone", "Small_treasure_chest", "ingen_skatt"]
+        antal_skatter = random.randint(0, 5)
+        print(antal_skatter)
+        random_treasure = numpy.random.choice(treasure_list, antal_skatter, replace=False, p=[
+            0.40, 0.20, 0.15, 0.10, 0.05, 0.10])
         print(random_treasure)
