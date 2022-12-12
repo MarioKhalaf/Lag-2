@@ -7,23 +7,18 @@ import random
 #random_treasure = random.choices(treasure_list, weights=(40, 20, 15, 10, 5), k=5)
 #print(random_treasure)
 
-random.randint(0, 100)
 if random.randint(0, 100) <= 40:
     print("Loose_change")
 
-random.randint(0, 100)
 if random.randint(0, 100) <= 20:
     print("Money_bag")
 
-random.randint(0, 100)
 if random.randint(0, 100) <= 15:
     print("Gold_jewelry")
 
-random.randint(0, 100)
 if random.randint(0, 100) <= 10:
     print("Gemstone")
 
-random.randint(0, 100)
 if random.randint(0, 100) <= 5:
     print("Small_treasure_chest")
 
