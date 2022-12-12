@@ -35,7 +35,8 @@ class Treasure:
         print(random_treasure)
 
     def random_treasure2(self):
-        treasure_list = [self.Loose_change, self.Money_bag, self.Gold_jewelry, self.Gemstone, self.Small_treasure_chest]
+        treasure_list = [self.Loose_change, self.Money_bag, self.Gold_jewelry,
+                         self.Gemstone, self.Small_treasure_chest, "ingen_skatt"]
         antal_skatter = random.randint(1, 5)
         print(antal_skatter)
         random_treasure = numpy.random.choice(treasure_list, antal_skatter, replace=False, p=[
