@@ -40,7 +40,7 @@ graph TD
     Monster --> |Vinst mot monster|Skatt 
     Monster --> |Vinst mot monster|Besökt_rum
     Monster --> |Vinst mot monster|Riktning
-    Monster --> |Förlorar mot monster|Game_over[Spelaren dör]
+    Monster --> |Förlorar mot monster|Game_over[Karaktären dör]
     Skatt --> Riktning
     Game_over --> |Addera skatter|Spara_spelet
     Utgång --> Riktning
@@ -80,28 +80,30 @@ Graf för en strid.
 ```mermaid
 graph TD
     Start{Start} --> Slå_tärning[Slå tärning]
-    Slå_tärning --> |"Beräknar initiativ värde, t ex 7*t6"| Turordning{"Turordning(Högst börjar)"}
+    Slå_tärning --> |"Beräknar initiativ värde 7*t6"| Turordning{"Turordning(Högst börjar)"}
     Turordning --> Karaktär
+    Karaktär -->|" Attackerar, beräknar attack värde"| Monster -->|"Attackerar, beräknar attack värde"| Karaktär
+    Karaktär --> |Attack större än Smidighets, attacken lyckas|Karaktär_skadad[Karaktär skadas]
+    Karaktär_skadad --> Karaktär
+    Karaktär --> |Attack mindre än Smidighet, attacken missas|Karaktär_oskadd[Karaktären oskadd]
+    Karaktär_oskadd --> Karaktär
+    Karaktär --> Game-over[Karaktären dör]
+    Game-over[Karaktären dör] --> Spelet_slut[Spelet slut]
     Turordning --> Monster
-    Monster --> Attackera
-    Karaktär --> Attackera
-    Karaktär --> Fly
-    Attackera --> Slå_tärning
-    Slå_tärning --> |"Beräknar attack värde, t ex 5*t6"| Karaktär -->|Attackerar| Monster
-    Slå_tärning --> |"Beräknar smidighets värde, t ex 3*t6"|Monster -->|Attackerar| Karaktär
-    Karaktär --> Game-over[Spelaren dör]
-    Game-over[Spelaren dör] --> Spelet_slut[Spelet slut]
-    Monster --> Monstret_dör[Monstret dör]
+    Monster --> |Attacken större än Smidighet, monster 1 i skada| Monstret_skadad[Monstret skadas]
+    Monstret_skadad --> Monster
+    Monster --> |Smidighet större än Attack, attacken missas| Monstret_oskadd[Monstret är oskadd]
+    Monstret_oskadd --> Monster
+    Monster --> |Attacken större än Smidighet, monster dör| Monstret_dör[Monstret dör]
     Monstret_dör[Monstret dör] --> Plocka_skatt[Plocka skatt]
-    Monstret_dör[Monstret dör] --> 
-    Ingen_skatt[Ingen skatt] --> Välj_riktning[Välj riktning att gå]
+    Monstret_dör[Monstret dör] --> Ingen_skatt[Ingen skatt] --> Välj_riktning[Välj riktning att gå]
     Plocka_skatt[Plocka skatt] --> Välj_riktning[Välj riktning att gå]
-    Fly --> Slå_tärning
-    Slå_tärning --> |"Beräknar smidighets värde, t ex 4*10 = x% chans att fly"| Fly
-    Fly --> Spelaren_lyckas[Spelaren lyckas fly]
-    Spelaren_lyckas[Spelaren lyckas fly] -->|Striden avbryts, inga skatter plockas ut, spelet sparar monster i rummet| Flyttas_till_föregående_rum[Flyttas till föregående rum]
-    Fly --> Spelaren_misslyckas[Spelaren misslyckas att fly]
-    Spelaren_misslyckas[Spelaren misslyckas att fly] --> Stannar_kvar[Stannar kvar i rummet]
+    Karaktär --> |"Beräknar smidighets värde *10 = x% chans att fly"| Flyr
+    Flyr --> Karaktären_lyckas[Karaktären lyckas fly]
+    Karaktären_lyckas[Karaktären lyckas fly] -->|Striden avbryts, inga skatter plockas ut, spelet sparar monster i rummet| Flyttas_till_föregående_rum[Flyttas till föregående rum]
+    Flyr --> Karaktären_misslyckas[Karaktären misslyckas att fly]
+    Karaktären_misslyckas[Karaktären misslyckas att fly] --> Stannar_kvar[Stannar kvar i rummet]
+    Stannar_kvar[Stannar kvar i rummer] --> Monster -->|"Attackerar, beräknar attack värde"| Karaktär
 
 ```
 
