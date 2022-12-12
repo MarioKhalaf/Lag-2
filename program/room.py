@@ -1,4 +1,5 @@
 from treasure import Treasure
+from monsters import Monsters
 
 
 class Room():
@@ -16,11 +17,14 @@ class Room():
 
     def treasures(self):
         # if self.monster = False
-        treasure = Treasure.random_treasure2()
-        points = Treasure.calculate_points()
+        list_of_treasures = Treasure.random_treasure2()
+        print(f"Antal skatter {list_of_treasures}.")
+        number_of_points = Treasure.calculate_points(list_of_treasures)
+        print(f"Antal poäng {number_of_points}.")
 
     def monster(self):
-        self.monster = False
+        list_of_monsters = Monsters.random_monster()
+        print(f"Antal skatter {list_of_monsters}.")
 
     def battle(self):
         pass
@@ -30,7 +34,3 @@ class Room():
 
     def win(self):
         pass
-
-
-treasure = Treasure.random_treasure2()
-points = Treasure.calculate_points(treasure)
