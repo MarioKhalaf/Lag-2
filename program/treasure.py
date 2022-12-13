@@ -23,7 +23,7 @@ class MoneyBag(Treasure):
         super().__init__("Money bag", 2, 20)
 
 
-class Gold_jewelry(Treasure):
+class GoldJewelry(Treasure):
 
     def __init__(self):
         super().__init__("Gold jewelry", 10, 15)
@@ -35,14 +35,14 @@ class Gemstone(Treasure):
         super().__init__("Gemstone", 14, 10)
 
 
-class Small_treasure_chest(Treasure):
+class SmallTreasureChest(Treasure):
 
     def __init__(self):
         super().__init__("Small treasure chest", 20, 5)
 
 
 def random_treasure():
-    treasure_list = [LooseChange(), MoneyBag(), Gold_jewelry(), Gemstone(), Small_treasure_chest()]
+    treasure_list = [LooseChange(), MoneyBag(), GoldJewelry(), Gemstone(), SmallTreasureChest()]
     random_treasures = []
     treasure_value = 0
     for treasure in treasure_list:
