@@ -1,5 +1,5 @@
 from treasure import Treasure
-from monsters import Monsters
+from monster import Monster
 
 
 class Room():
@@ -17,14 +17,14 @@ class Room():
 
     def treasures(self):
         # if self.monster = False
-        list_of_treasures = Treasure.random_treasure2()
-        print(f"Antal skatter {list_of_treasures}.")
-        number_of_points = Treasure.calculate_points(list_of_treasures)
-        print(f"Antal poäng {number_of_points}.")
+        # Returns a tuple With a list of treasure and total value of treasure.
+        treasures = Treasure.random_treasure2()
+        print(f"Tuple of list of treasure and total value of treasure {treasures}.")
 
     def monster(self):
-        list_of_monsters = Monsters.random_monster()
-        print(f"Antal skatter {list_of_monsters}.")
+        # Returns a list of monsters.
+        monsters = Monster.random_monster()
+        print(f"List of monsters {monsters}.")
 
     def battle(self):
         pass

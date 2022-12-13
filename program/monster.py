@@ -13,6 +13,14 @@ class Monster:
     def __str__(self):
         return self.name
 
+    def random_monster():
+        monster_list = [Orc(), GiantSpider(), Skeleton(), Troll()]
+        random_monsters = []
+        for monster in monster_list:
+            if random.randint(0, 100) <= monster.probability:
+                random_monsters.append(monster.name)
+        return (random_monsters)
+
 
 class GiantSpider(Monster):
 
@@ -36,13 +44,3 @@ class Troll(Monster):
 
     def __init__(self):
         super().__init__("Troll", 2, 4, 7, 2, 5)
-
-
-def random_monster():
-    monster_list = [Orc(), GiantSpider(), Skeleton(), Troll()]
-    random_monsters = []
-    for monster in monster_list:
-        if random.randint(0, 100) <= monster.probability:
-            random_monsters.append(monster.name)
-
-    print(random_monsters)
