@@ -16,7 +16,12 @@ graph TD
     Riddaren --> Välj_namn
     Tjuven --> Välj_namn
     Välj_namn --> |Spara automatiskt ny karaktär|Äventyr{Äventyr}
-    Äventyr --> |Rum: 4x4|Liten
+
+```
+
+```mermaid
+graph TD
+    Äventyr{Äventyr} --> |Rum: 4x4|Liten
     Äventyr --> |Rum: 5x5|Mellan
     Äventyr --> |Rum: 8x8|Stor
     Liten --> |Slumpmässigt innehåll|Karta
@@ -31,7 +36,13 @@ graph TD
     Hörn_2 --> Riktning
     Hörn_3 --> Riktning
     Hörn_4 --> Riktning
-    Riktning --> Nytt_rum{Nytt rum}
+   
+```
+
+```mermaid
+graph TD
+    Riktning[Välj riktning att gå] --> Nytt_rum{Nytt rum}
+    Nytt_rum{Nytt rum}-->Riktning 
     Riktning --> Besökt_rum
     Nytt_rum --> Skatt
     Nytt_rum --> Monster
@@ -73,6 +84,7 @@ alternativ om hen vill lämna kartan, eller stanna kvar.
 8. När ett äventyr tar slut adderas de ihopsamlade skatterna till den sparade spelkaraktären.
 Man kan alltså spela flera äventyr med samma sparade karaktär för att samla på sig skatter.
 
+
 ## Graf
 
 Graf för en strid.
@@ -106,6 +118,35 @@ graph TD
     Stannar_kvar[Stannar kvar i rummer] --> Monster -->|"Attackerar, beräknar attack värde"| Karaktär
 
 ```
+
+## Sequence Diagram 
+
+För en strid
+
+
+```mermaid
+sequenceDiagram
+
+Riddare->>Troll: Hej Troll, mitt initiativ är 5*t6 = 30
+Troll->>Riddare: Hej Riddare, mitt initiativ är 2*t6 = 12
+Riddare->>Troll: Jag börjar spelrundan och väljer att fly
+Riddare->>Riddare: Attack eller fly
+Riddare->>Troll: Försöker fly, smidighet 4*10 = 40% chans att fly
+Troll->>Riddare: Försöker stoppa flykten, attackerar med attack 7*t6 = 42
+Riddare ->>Troll: Jag försvarar mig, smidighet 4*t6 = 24
+Troll-->>+Riddare: Ha riddare, flykt misslyckades och jag attackerar
+Riddare-->>-Troll: Ha, troll! Min specialförmåga blockerar alltid första attacken
+Riddare->>Troll: Nu påbörjar jag min första attack, mitt attackvärde är 6*t6 = 36
+Troll->>Riddare: Jag försvarar mig med mitt smidighetsvärde 2*t6 = 12
+Riddare->>Troll: Jag skadar dig och drar av 1 i tålighet.
+Troll -> Troll: Jag har kvar värde 0 i tålighet
+
+
+
+
+
+```
+
 
 Beskrivning
 
