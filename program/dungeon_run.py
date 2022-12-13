@@ -1,5 +1,5 @@
 import json
-
+from room import Room
 
 class Player:
 
@@ -130,6 +130,7 @@ class GameMap:
                     self.map[i][j] = "[X]"
 
                 elif option == "3":
+                    
                     self.map[i][j+1] = "[O]"
                     self.map[i][j] = "[X]"
                 
@@ -152,7 +153,6 @@ class GameMap:
             for j, row in enumerate(column):
                 if "O" in row:
                     return i, j
-
 
 def main_menu():
     p = Player()
