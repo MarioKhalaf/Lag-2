@@ -34,3 +34,18 @@ class Room():
 
     def win(self):
         pass
+
+treasures_value = Room.treasures()
+treasures_value = treasures_value[1]
+print(treasures_value)
+
+with open("saved_games.json") as f:
+    data = json.load(f)
+    for value in data["Players"]:
+        if value["Name"] == Player.__str__:
+            value["Treasure"] += treasures_value
+            with open("saved_games.json", "w", encoding="utf-8") as f:
+                f.write(json.dumps(data, indent=4))
+
+
+# print(Player.__str__)
