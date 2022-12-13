@@ -48,7 +48,7 @@ def random_treasure():
     for treasure in treasure_list:
         if random.randint(0, 100) <= treasure.probability:
             random_treasures.append(treasure.name)
-            treasure_value = treasure.value + treasure_value
+            treasure_value += treasure.value
 
     print(random_treasures)
     print(treasure_value)
