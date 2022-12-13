@@ -14,14 +14,14 @@ class Player:
         self.player["Character"] = hero["Hero"]
         self.player["Treasure"] = 0
 
-        with open("saved_games.json") as f:
+        with open("program\saved_games.json") as f:
             data = json.load(f)
         data["Players"].append(self.player)
-        with open("saved_games.json", "w", encoding="utf-8") as f:
+        with open("program\saved_games.json", "w", encoding="utf-8") as f:
             f.write(json.dumps(data, indent=4))
 
     def check_name(self, hero_name):
-        with open("saved_games.json") as f:
+        with open("program\saved_games.json") as f:
             data = json.load(f)
         for value in data["Players"]:
             if value["Name"] == hero_name:
@@ -30,7 +30,7 @@ class Player:
 
     def load_existing_account(self):
         account_name = input("Name of your saved account: ").capitalize()
-        with open("saved_games.json") as f:
+        with open("program\saved_games.json") as f:
             data = json.load(f)
         for i, player in enumerate(data["Players"]):
             if player["Name"] == account_name:  # if name of account is in there, return True
