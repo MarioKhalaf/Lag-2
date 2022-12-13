@@ -46,6 +46,3 @@ def random_monster():
             random_monsters.append(monster.name)
 
     print(random_monsters)
-
-
-issubclass
