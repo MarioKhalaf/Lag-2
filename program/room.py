@@ -18,7 +18,7 @@ class Room():
     def treasures(self):
         # if self.monster = False
         # Returns a tuple With a list of treasure and total value of treasure.
-        treasures = Treasure.random_treasure2()
+        treasures = Treasure.random_treasure()
         print(f"Tuple of list of treasure and total value of treasure {treasures}.")
 
     def monster(self):
