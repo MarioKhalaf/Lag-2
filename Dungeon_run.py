@@ -26,8 +26,7 @@ class Player:
             if value["Name"] == hero_name:
                 return True
         return False
-    
-    
+
     def load_existing_account(self):
         account_name = input("Name of your saved account: ").capitalize()
         with open("saved_games.json") as f:
@@ -57,7 +56,7 @@ class Player:
                 "Iniative": 5,
                 "Endurance": 9,
                 "Attack": 6,
-                "Flexibility": 4 
+                "Flexibility": 4
             },
             {
                 "Hero": "Wizard",
@@ -84,6 +83,7 @@ class Player:
         elif choose_hero == "3":
             return heroes[2]
 
+
 class GameMap:
     def __init__(self, size) -> None:
         self.size = size
@@ -98,31 +98,43 @@ class GameMap:
         print(f"\nYou will begin the game at corner {choice}\n")
 
         if choice == "1":
-            self.map[0][0] = "[X]"
-            return  self.map
+            self.map[0][0] = "[O]"
         elif choice == "2":
-            self.map[0][self.size-1] = "[X]"
-            return self.map
+            self.map[0][self.size-1] = "[O]"
         elif choice == "3":
-            self.map[self.size-1][0] = "[X]"
-            return self.map
+            self.map[self.size-1][0] = "[O]"
         elif choice == "4":
-            self.map[self.size-1][self.size-1] = "[X]"
-            return self.map
+            self.map[self.size-1][self.size-1] = "[O]"
 
-    def path_options(self, game_room):
+        self.path_options()
+
+    def path_options(self):
         while True:
-            for i in game_room:
+            for i in self.map:
                 print(' '.join(i))
-            option = input("\nChoose where to go\n\n1. Up\n2. Down\n3. Right\n4. Left")
+            option = input("\nChoose where to go\n\n1. Up\n2. Down\n3. Right\n4. Left\n")
+            i, j = self.coordinates()
             if option == "1":
-                pass
-            if option == "1":
-                pass
-            if option == "1":
-                pass
-            if option == "1":
-                pass
+                self.map[i][j] = "[X]"
+                self.map[i-1][j] = "[O]"
+            elif option == "2":
+                self.map[i][j] = "[2]"
+                self.map[i+1][j] = "[O]"
+            elif option == "3":
+                self.map[i][j] = "[X]"
+                self.map[i][j+1] = "[O]"
+            elif option == "4":
+                self.map[i][j] = "[X]"
+                self.map[i][j-1] = "[O]"
+            else:
+                print("Not a valid option.")
+
+    def coordinates(self):
+        for i, column in enumerate(self.map):
+            for j, row in enumerate(column):
+                if "O" in row:
+                    return i, j
+
 
 def main_menu():
     p = Player()
