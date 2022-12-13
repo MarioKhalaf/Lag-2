@@ -1,17 +1,18 @@
 import json
-from tabulate import tabulate
 
 
 class Player:
 
     def __init__(self) -> None:
         self.player = {}
+    
+    def __str__(self) -> str:
+        return self.name
 
     def write_to_json(self, hero_name, hero):
-        treasury = 0
         self.player["Name"] = hero_name
         self.player["Character"] = hero["Hero"]
-        self.player["Treasury"] = treasury
+        self.player["Treasure"] = 0
 
         with open("saved_games.json") as f:
             data = json.load(f)
@@ -36,13 +37,14 @@ class Player:
                 print(f"\nWelcome back {account_name}")
                 return data["Players"][i]
             else:
-                print("This account does not exist\n")
+                return "This account does not exist\n"
 
     def name_your_hero(self, hero):
         hero_name = input("Choose a name for your hero: ").capitalize()
         if self.check_name(hero_name):
             print("This name already exists.")
         else:
+            self.name = hero_name
             character = hero["Hero"]
             print(f"\nHello {hero_name}, You have chosen the {character} ")
             for key, value in hero.items():
@@ -110,24 +112,40 @@ class GameMap:
 
     def path_options(self):
         while True:
-            for i in self.map:
-                print(' '.join(i))
-            option = input("\nChoose where to go\n\n1. Up\n2. Down\n3. Right\n4. Left\n")
-            i, j = self.coordinates()
-            if option == "1":
-                self.map[i][j] = "[X]"
-                self.map[i-1][j] = "[O]"
-            elif option == "2":
-                self.map[i][j] = "[2]"
-                self.map[i+1][j] = "[O]"
-            elif option == "3":
-                self.map[i][j] = "[X]"
-                self.map[i][j+1] = "[O]"
-            elif option == "4":
-                self.map[i][j] = "[X]"
-                self.map[i][j-1] = "[O]"
-            else:
-                print("Not a valid option.")
+            try:
+                for i in self.map:
+                    print(' '.join(i))
+                option = input("\nChoose where to go\n\n1. Up\n2. Down\n3. Right\n4. Left\n")
+                i, j = self.coordinates()
+                if option == "1":
+                    self.map[i][j] = "[X]"
+                    if i-1 < 0:
+                        print("\nYou cannot go there")
+                        self.map[i][j] = "[O]"
+                    else:
+                        self.map[i-1][j] = "[O]"
+
+                elif option == "2":
+                    self.map[i+1][j] = "[O]"
+                    self.map[i][j] = "[X]"
+
+                elif option == "3":
+                    self.map[i][j+1] = "[O]"
+                    self.map[i][j] = "[X]"
+                
+                elif option == "4":
+                    self.map[i][j] = "[X]"
+                    if j-1 < 0:
+                        print("\nYou cannot go there")
+                        self.map[i][j] = "[O]"
+                    else:
+                        self.map[i][j-1] = "[O]"
+
+                else:
+                    print("Not a valid option.")
+
+            except IndexError:
+                print("\nYou cannot go there.")
 
     def coordinates(self):
         for i, column in enumerate(self.map):
@@ -148,8 +166,7 @@ def main_menu():
             p.name_your_hero(hero)
             size = int(input("\nChoose a map size by entering one of these numbers: 4,5,8: "))
             g = GameMap(size)
-            game_room = g.room_menu()
-            g.path_options(game_room)
+            g.room_menu()
 
         elif option == "2":
             account = p.load_existing_account()

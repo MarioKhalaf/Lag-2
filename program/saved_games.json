@@ -1,0 +1,14 @@
+{
+    "Players": [
+        {
+            "Name": "Mario",
+            "Character": "Knight",
+            "Treasure": 0
+        },
+        {
+            "Name": "5",
+            "Character": "Wizard",
+            "Treasure": 0
+        }
+    ]
+}
