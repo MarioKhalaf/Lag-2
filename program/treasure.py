@@ -1,44 +1,54 @@
 import random
-import numpy
 
 
 class Treasure:
-    def _init_(self):
-        self.value
-        self.probability
+    def __init__(self, name, value, probability):
+        self.name = name
+        self.value = value
+        self.probability = probability
 
-    def Loose_change(self):
-        self.value = 2
-        self.probability = "40%"
+    def __str__(self):
+        return self.name
 
-    def Money_bag(self):
-        self.value = 6
-        self.probability = "20%"
 
-    def Gold_jewelry(self):
-        self.value = 10
-        self.probability = "15%"
+class LooseChange(Treasure):
 
-    def Gemstone(self):
-        self.value = 14
-        self.probability = "10%"
+    def __init__(self):
+        super().__init__("loose change", 2, 40)
 
-    def Small_treasure_chest(self):
-        self.value = 20
-        self.probability = "5%"
 
-    def random_treasure(self):  # with replacements, ska ändras till without replacements.
-        treasure_list = [self.Loose_change, self.Money_bag, self.Gold_jewelry, self.Gemstone, self.Small_treasure_chest]
-        antal_skatter = random.randint(0, 5)
-        print(antal_skatter)
-        random_treasure = random.choices(treasure_list, weights=(40, 20, 15, 10, 5), k=antal_skatter)
-        print(random_treasure)
+class MoneyBag(Treasure):
 
-    def random_treasure2(self):
-        treasure_list = ["Loose_change", "Money_bag", "Gold_jewelry",
-                         "Gemstone", "Small_treasure_chest", "ingen_skatt"]
-        antal_skatter = random.randint(1, 5)
-        print(antal_skatter)
-        random_treasure = numpy.random.choice(treasure_list, antal_skatter, replace=False, p=[
-            0.40, 0.20, 0.15, 0.10, 0.05, 0.10])
-        print(random_treasure)
+    def __init__(self):
+        super().__init__("Money bag", 2, 20)
+
+
+class Gold_jewelry(Treasure):
+
+    def __init__(self):
+        super().__init__("Gold jewelry", 10, 15)
+
+
+class Gemstone(Treasure):
+
+    def __init__(self):
+        super().__init__("Gemstone", 14, 10)
+
+
+class Small_treasure_chest(Treasure):
+
+    def __init__(self):
+        super().__init__("Small treasure chest", 20, 5)
+
+
+def random_treasure():
+    treasure_list = [LooseChange(), MoneyBag(), Gold_jewelry(), Gemstone(), Small_treasure_chest()]
+    random_treasures = []
+    treasure_value = 0
+    for treasure in treasure_list:
+        if random.randint(0, 100) <= treasure.probability:
+            random_treasures.append(treasure.name)
+            treasure_value = treasure.value + treasure_value
+
+    print(random_treasures)
+    print(treasure_value)
