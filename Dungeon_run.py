@@ -93,7 +93,7 @@ class GameMap:
         for i in self.map:
             print(' '.join(i))
 
-        print("\n1. corner 1\n2. corner 2\n3. corner 3\n4. corner 4\nQ. Exit\n")
+        print("\nChoose the starting place for your hero.\n\n1. corner 1\n2. corner 2\n3. corner 3\n4. corner 4\nQ. Exit\n")
         choice = input('Your choice: ').lower()
         print(f"\nYou will begin the game at corner {choice}\n")
 
@@ -110,19 +110,19 @@ class GameMap:
             self.map[self.size-1][self.size-1] = "[X]"
             return self.map
 
-def game_menu(game_room):
-    while True:
-        for i in game_room:
-            print(' '.join(i))
-        option = input("\nChoose where to go\n\n1. Up\n2. Down\n3. Right\n4. Left")
-        if option == "1":
-            pass
-        if option == "1":
-            pass
-        if option == "1":
-            pass
-        if option == "1":
-            pass
+    def path_options(self, game_room):
+        while True:
+            for i in game_room:
+                print(' '.join(i))
+            option = input("\nChoose where to go\n\n1. Up\n2. Down\n3. Right\n4. Left")
+            if option == "1":
+                pass
+            if option == "1":
+                pass
+            if option == "1":
+                pass
+            if option == "1":
+                pass
 
 def main_menu():
     p = Player()
@@ -137,7 +137,7 @@ def main_menu():
             size = int(input("\nChoose a map size by entering one of these numbers: 4,5,8: "))
             g = GameMap(size)
             game_room = g.room_menu()
-            game_menu(game_room)
+            g.path_options(game_room)
 
         elif option == "2":
             account = p.load_existing_account()
