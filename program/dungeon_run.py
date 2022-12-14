@@ -1,15 +1,13 @@
 import json
-from room import Room
 from treasure import Treasure
+from tabulate import tabulate
+from time import sleep
 
 
 class Player:
 
     def __init__(self) -> None:
         self.player = {}
-
-    def __str__(self) -> str:
-        return self.name
 
     def write_to_json(self, hero_name, hero):
         self.player["Name"] = hero_name
@@ -41,8 +39,10 @@ class Player:
             for key, value in hero.items():
                 print(f"{key}, {value}")
             self.write_to_json(hero_name, hero)
+            return self.player
 
-    def hero_choice(self, choose_hero):
+    def hero_choice(self):
+        choose_hero = input('Choose your hero.\n1. The knight\n2. The Wizard\n3. The Thief\n')
         heroes = [
             {
                 "Hero": "Knight",
@@ -78,7 +78,8 @@ class Player:
 
 
 class GameMap:
-    def __init__(self, size) -> None:
+    def __init__(self, account, size):
+        self.account = account
         self.size = size
         self.map = [["[ ]" for _ in range(self.size)] for _ in range(self.size)]
 
@@ -102,54 +103,50 @@ class GameMap:
         self.path_options()
 
     def path_options(self):
-        treasure_value = 0
         while True:
-            treasures = Treasure.random_treasure()
-            treasure_value += treasures[1]
-            
             try:
                 for i in self.map:
                     print(' '.join(i))
+
                 option = input("\nChoose where to go\n\n1. Up\n2. Down\n3. Right\n4. Left\n")
                 i, j = self.coordinates()
                 if i == 0 and j == 3:
-                    print("\nYou have found the exit!\n")
+                    self.exit_game()
                     break
 
-                print("\nYou enter a new room")
-                print(f"You have found {treasures}")
-                input("Press any key to continue...")
-                if option == "1":
-                    self.map[i][j] = "[X]"
+                elif option == "1":
                     if i-1 < 0:
-                        print("\nYou cannot go there")
+                        print("\nYou cannot go there\n")
                         self.map[i][j] = "[O]"
                     else:
                         self.map[i-1][j] = "[O]"
+                        self.new_room()
+                        self.map[i][j] = "[X]"
 
                 elif option == "2":
                     self.map[i+1][j] = "[O]"
+                    self.new_room()
                     self.map[i][j] = "[X]"
 
                 elif option == "3":
                     self.map[i][j+1] = "[O]"
+                    self.new_room()
                     self.map[i][j] = "[X]"
 
                 elif option == "4":
-                    self.map[i][j] = "[X]"
                     if j-1 < 0:
                         print("\nYou cannot go there")
                         self.map[i][j] = "[O]"
                     else:
                         self.map[i][j-1] = "[O]"
+                        self.new_room()
+                        self.map[i][j] = "[X]"
 
                 else:
                     print("Not a valid option.")
 
-
             except IndexError:
                 print("\nYou cannot go there.")
-        #save_treasure(treasure_value)
 
     def coordinates(self):
         for i, column in enumerate(self.map):
@@ -157,19 +154,43 @@ class GameMap:
                 if "O" in row:
                     return i, j
 
+    def new_room(self):
+        treasures = Treasure.random_treasure()
+        print("\nYou enter a new room")
+        sleep(1)
+        if treasures[1] == 0:
+            print("This room is empty")
+            input("Press any key to continue...\n")
+        else:
+            self.account["Treasure"] += treasures[1]
+            print(f"You have found {treasures}")
+            input("Press any key to continue...\n")
+
+    def exit_game(self):
+        print("\nYou have found the exit!\n")
+        with open("program\saved_games.json") as f:
+            data = json.load(f)
+        for i, player in enumerate(data["Players"]):
+            if player["Name"] == self.account["Name"]:
+                data["Players"][i]["Treasure"] = self.account["Treasure"]
+            with open("program\saved_games.json", "w") as f:
+                f.write(json.dumps(data, indent=4))
+
 
 def load_existing_account():
-    account_name = input("Name of your saved account: ").capitalize()
     with open("program\saved_games.json") as f:
         data = json.load(f)
+    header = data["Players"][0].keys()
+    rows = [x.values() for x in data["Players"]]
+    print(tabulate(rows, header, tablefmt='fancy_grid'))
+
+    account_name = input("Name of your saved account: ").capitalize()
     for i, player in enumerate(data["Players"]):
-        if player["Name"] == account_name:  # if name of account is in there, return True
+        if player["Name"] == account_name:
             print(f"\nWelcome back {account_name}")
             return data["Players"][i]
-        else:
-            return "This account does not exist\n"
 
-
+2
 def main_menu():
     p = Player()
     print("Welcome to the dungeon run!\nChoose your option and begin the adventure.\n")
@@ -177,20 +198,20 @@ def main_menu():
         option = input("1. Create a new hero\n2. Load existing hero\n3. Exit\n")
 
         if option == "1":
-            choose_hero = input('Choose your hero.\n1. The knight\n2. The Wizard\n3. The Thief\n')
-            hero = p.hero_choice(choose_hero)
-            p.name_your_hero(hero)
+            hero = p.hero_choice()
+            account = p.name_your_hero(hero)
             size = int(input("\nChoose a map size by entering one of these numbers: 4,5,8: "))
-            g = GameMap(size)
+            g = GameMap(account, size)
             g.room_menu()
 
         elif option == "2":
             account = load_existing_account()
-            p.name = account["Name"]
-            size = int(input("\nChoose a map size by entering one of these numbers: 4,5,8: "))
-            g = GameMap(size)
-
-            g.room_menu()
+            if account is None:
+                print("\nThere is no account by that name.\n")
+            else:
+                size = int(input("\nChoose a map size by entering one of these numbers: 4,5,8: "))
+                g = GameMap(account, size)
+                g.room_menu()
 
         elif option == "3":
             exit("Goodbye!")

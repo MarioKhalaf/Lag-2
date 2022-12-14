@@ -3,17 +3,22 @@
         {
             "Name": "Mario",
             "Character": "Knight",
-            "Treasure": 18
+            "Treasure": 228
         },
         {
-            "Name": "5",
-            "Character": "Wizard",
+            "Name": "Bruno",
+            "Character": "Thief",
             "Treasure": 0
         },
         {
-            "Name": "Dd",
-            "Character": "Wizard",
-            "Treasure": 0
+            "Name": "Test",
+            "Character": "Thief",
+            "Treasure": 2
+        },
+        {
+            "Name": "Brun",
+            "Character": "Thief",
+            "Treasure": 64
         }
     ]
 }
