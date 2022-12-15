@@ -1,5 +1,6 @@
 from treasure import Treasure
 from monster import Monster
+import random
 import json
 
 
@@ -30,16 +31,17 @@ class Room():
         return monsters
 
     def battle(self):
-        pass
+        print("Time to fight. ")
 
     def loose(self):
         pass
 
+    def roll_dice(self):
+        roll_dice = random.randint(1, 6)
+        print(f"You rolled {roll_dice}")
+
     def win(self):
         pass
-
-    def main_room1(self):
-        print("u r in a room")
 
     def main_room(self, account):
         print(account)
@@ -51,8 +53,8 @@ class Room():
             print("No monster")
         else:
             for monster in monster_list:
-                # self.battle()
                 print(monster)
+                self.battle()
         random_treasures_list = self.treasures()
         for treasures in random_treasures_list[0]:
             print(treasures)
