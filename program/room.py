@@ -1,5 +1,6 @@
 from treasure import Treasure
 from monster import Monster
+import random
 import json
 
 
@@ -35,11 +36,12 @@ class Room():
     def loose(self):
         pass
 
+    def roll_dice(self):
+        roll_dice = random.randint(1, 6)
+        print(f"You rolled {roll_dice}")
+
     def win(self):
         pass
-
-    def main_room1(self):
-        print("u r in a room")
 
     def main_room(self, account):
         print(account)
