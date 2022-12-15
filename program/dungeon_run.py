@@ -1,5 +1,6 @@
 import json
 from treasure import Treasure
+from monster import Monster
 from tabulate import tabulate
 from time import sleep
 
@@ -49,7 +50,8 @@ class Player:
                 "Iniative": 5,
                 "Endurance": 9,
                 "Attack": 6,
-                "Flexibility": 4
+                "Flexibility": 4,
+                "health": 10
             },
             {
                 "Hero": "Wizard",
@@ -156,6 +158,7 @@ class GameMap:
 
     def new_room(self):
         treasures = Treasure.random_treasure()
+        monster = Monster.random_monster()
         print("\nYou enter a new room")
         sleep(1)
         if treasures[1] == 0:
@@ -163,7 +166,8 @@ class GameMap:
             input("Press any key to continue...\n")
         else:
             self.account["Treasure"] += treasures[1]
-            print(f"You have found {treasures}")
+            print(f"You have found {' '.join(treasures[0])} worth {treasures[1]} points")
+            print(f"A {' '.join(monster)} appeared")
             input("Press any key to continue...\n")
 
     def exit_game(self):
@@ -190,7 +194,6 @@ def load_existing_account():
             print(f"\nWelcome back {account_name}")
             return data["Players"][i]
 
-2
 def main_menu():
     p = Player()
     print("Welcome to the dungeon run!\nChoose your option and begin the adventure.\n")
