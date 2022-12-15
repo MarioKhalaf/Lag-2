@@ -3,6 +3,7 @@ from treasure import Treasure
 from monster import Monster
 from tabulate import tabulate
 from time import sleep
+import random
 
 
 class Player:
@@ -111,6 +112,7 @@ class GameMap:
 
                 option = input("\nChoose where to go\n\n1. Up\n2. Down\n3. Right\n4. Left\n")
                 i, j = self.coordinates()
+
                 if i == 0 and j == 3:
                     self.exit_game()
                     break
@@ -153,6 +155,15 @@ class GameMap:
                 if "O" in row:
                     return i, j
 
+    def visited_rooms(self):
+        for i, column in enumerate(self.map):
+            for j, row in enumerate(column):
+                if "X" in row[j]:
+                    print()
+                    return True
+                else:
+                    return False
+
     def new_monster(self):
         monster = Monster.random_monster()
         print("\nYou enter a new room")
@@ -163,6 +174,8 @@ class GameMap:
         else:
             print(f"A {' '.join(monster)} appeared")
             self.new_treasure()
+            roll = random.randint(1, 6)
+            print(f"You rolled {roll}")
 
     def new_treasure(self):
         treasures = Treasure.random_treasure()
