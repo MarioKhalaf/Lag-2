@@ -34,7 +34,6 @@ class Player:
         if self.check_name(hero_name):
             print("This name already exists.")
         else:
-            self.name = hero_name
             character = hero["Hero"]
             print(f"\nHello {hero_name}, You have chosen the {character} ")
             for key, value in hero.items():
@@ -119,29 +118,27 @@ class GameMap:
                 elif option == "1":
                     if i-1 < 0:
                         print("\nYou cannot go there\n")
-                        self.map[i][j] = "[O]"
                     else:
                         self.map[i-1][j] = "[O]"
-                        self.new_room()
+                        self.new_treasure()
                         self.map[i][j] = "[X]"
 
                 elif option == "2":
                     self.map[i+1][j] = "[O]"
-                    self.new_room()
+                    self.new_treasure()
                     self.map[i][j] = "[X]"
 
                 elif option == "3":
                     self.map[i][j+1] = "[O]"
-                    self.new_room()
+                    self.new_treasure()
                     self.map[i][j] = "[X]"
 
                 elif option == "4":
                     if j-1 < 0:
-                        print("\nYou cannot go there")
-                        self.map[i][j] = "[O]"
+                        print("\nYou cannot go there\n")
                     else:
                         self.map[i][j-1] = "[O]"
-                        self.new_room()
+                        self.new_treasure()
                         self.map[i][j] = "[X]"
 
                 else:
@@ -156,9 +153,15 @@ class GameMap:
                 if "O" in row:
                     return i, j
 
-    def new_room(self):
-        treasures = Treasure.random_treasure()
+    def new_monster(self):
         monster = Monster.random_monster()
+        if len(monster) == 0:
+            print()
+        else:
+            print(f"A {' '.join(monster)} appeared")
+
+    def new_treasure(self):
+        treasures = Treasure.random_treasure()
         print("\nYou enter a new room")
         sleep(1)
         if treasures[1] == 0:
@@ -167,7 +170,6 @@ class GameMap:
         else:
             self.account["Treasure"] += treasures[1]
             print(f"You have found {' '.join(treasures[0])} worth {treasures[1]} points")
-            print(f"A {' '.join(monster)} appeared")
             input("Press any key to continue...\n")
 
     def exit_game(self):
@@ -193,6 +195,7 @@ def load_existing_account():
         if player["Name"] == account_name:
             print(f"\nWelcome back {account_name}")
             return data["Players"][i]
+
 
 def main_menu():
     p = Player()
