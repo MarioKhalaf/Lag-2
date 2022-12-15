@@ -112,6 +112,8 @@ class GameMap:
 
                 option = input("\nChoose where to go\n\n1. Up\n2. Down\n3. Right\n4. Left\n")
                 i, j = self.coordinates()
+                visited_coord = self.visited_rooms()
+                print(visited_coord)
 
                 if i == 0 and j == 3:
                     print("You found a room with the exit!")
@@ -123,7 +125,8 @@ class GameMap:
                         self.exit_game()
                         break
                     elif choice == "2":
-                        print(option)
+                        self.map[i+1][j] = "[O]"
+                        self.map[i][j] = "[X]"
 
                 elif option == "1":
                     if i-1 < 0:
@@ -164,13 +167,15 @@ class GameMap:
                     return i, j
 
     def visited_rooms(self):
+        visited_coord = []
         for i, column in enumerate(self.map):
             for j, row in enumerate(column):
-                if "X" in row[j]:
-                    print()
-                    return True
-                else:
-                    return False
+                if "X" in row:
+                    if (i, j) not in visited_coord:
+                        visited_coord.append((i, j))
+                    else:
+                        pass
+        return visited_coord
 
     def new_monster(self):
         monster = Monster.random_monster()
