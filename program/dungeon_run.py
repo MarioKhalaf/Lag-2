@@ -120,17 +120,17 @@ class GameMap:
                         print("\nYou cannot go there\n")
                     else:
                         self.map[i-1][j] = "[O]"
-                        self.new_treasure()
+                        self.new_monster()
                         self.map[i][j] = "[X]"
 
                 elif option == "2":
                     self.map[i+1][j] = "[O]"
-                    self.new_treasure()
+                    self.new_monster()
                     self.map[i][j] = "[X]"
 
                 elif option == "3":
                     self.map[i][j+1] = "[O]"
-                    self.new_treasure()
+                    self.new_monster()
                     self.map[i][j] = "[X]"
 
                 elif option == "4":
@@ -138,7 +138,7 @@ class GameMap:
                         print("\nYou cannot go there\n")
                     else:
                         self.map[i][j-1] = "[O]"
-                        self.new_treasure()
+                        self.new_monster()
                         self.map[i][j] = "[X]"
 
                 else:
@@ -155,15 +155,17 @@ class GameMap:
 
     def new_monster(self):
         monster = Monster.random_monster()
+        print("\nYou enter a new room")
+        sleep(1)
         if len(monster) == 0:
-            print()
+            print("This room has no monsters.")
+            self.new_treasure()
         else:
             print(f"A {' '.join(monster)} appeared")
+            self.new_treasure()
 
     def new_treasure(self):
         treasures = Treasure.random_treasure()
-        print("\nYou enter a new room")
-        sleep(1)
         if treasures[1] == 0:
             print("This room is empty")
             input("Press any key to continue...\n")
