@@ -31,7 +31,7 @@ class Room():
         return monsters
 
     def battle(self):
-        pass
+        print("Time to fight. ")
 
     def loose(self):
         pass
@@ -53,8 +53,8 @@ class Room():
             print("No monster")
         else:
             for monster in monster_list:
-                # self.battle()
                 print(monster)
+                self.battle()
         random_treasures_list = self.treasures()
         for treasures in random_treasures_list[0]:
             print(treasures)
