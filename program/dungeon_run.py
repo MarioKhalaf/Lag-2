@@ -3,6 +3,7 @@ from treasure import Treasure
 from monster import Monster
 from tabulate import tabulate
 from time import sleep
+from room import Room
 
 
 class Player:
@@ -120,17 +121,20 @@ class GameMap:
                         print("\nYou cannot go there\n")
                     else:
                         self.map[i-1][j] = "[O]"
-                        self.new_monster()
+                        room = Room()
+                        room.main_room(self.account)
                         self.map[i][j] = "[X]"
 
                 elif option == "2":
                     self.map[i+1][j] = "[O]"
-                    self.new_monster()
+                    room = Room()
+                    room.main_room(self.account)
                     self.map[i][j] = "[X]"
 
                 elif option == "3":
                     self.map[i][j+1] = "[O]"
-                    self.new_monster()
+                    room = Room()
+                    room.main_room(self.account)
                     self.map[i][j] = "[X]"
 
                 elif option == "4":
@@ -138,7 +142,8 @@ class GameMap:
                         print("\nYou cannot go there\n")
                     else:
                         self.map[i][j-1] = "[O]"
-                        self.new_monster()
+                        room = Room(self.account)
+                        room.main_room()
                         self.map[i][j] = "[X]"
 
                 else:
@@ -154,6 +159,7 @@ class GameMap:
                     return i, j
 
     def new_monster(self):
+        print("monster test för rum")
         monster = Monster.random_monster()
         print("\nYou enter a new room")
         sleep(1)
