@@ -112,7 +112,7 @@ class GameMap:
 
                 option = input("\nChoose where to go\n\n1. Up\n2. Down\n3. Right\n4. Left\n")
                 i, j = self.coordinates()
-                if i == 0 and j == 3:
+                if i == 0 and j == 3 or i == 2 and j == 1:
                     self.exit_game()
                     break
 
@@ -193,6 +193,7 @@ def load_existing_account():
         if player["Name"] == account_name:
             print(f"\nWelcome back {account_name}")
             return data["Players"][i]
+
 
 def main_menu():
     p = Player()
