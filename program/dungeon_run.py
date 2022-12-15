@@ -112,8 +112,16 @@ class GameMap:
                 option = input("\nChoose where to go\n\n1. Up\n2. Down\n3. Right\n4. Left\n")
                 i, j = self.coordinates()
                 if i == 0 and j == 3:
-                    self.exit_game()
-                    break
+                    print("You found a room with the exit!")
+                    choice = input("""Make your choice:
+                                1. Quit the game
+                                2. Go to another room
+                                """)
+                    if choice == "1":
+                        self.exit_game()
+                        break
+                    elif choice == "2":
+                        print(option)
 
                 elif option == "1":
                     if i-1 < 0:
