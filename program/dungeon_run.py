@@ -121,7 +121,8 @@ class GameMap:
                         self.exit_game()
                         break
                     elif choice == "2":
-                        print(option)
+                        self.map[i+1][j] = "[0]"
+                        self.map[i][j] = "[X]"
 
                 elif option == "1":
                     if i-1 < 0:
