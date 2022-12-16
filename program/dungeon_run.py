@@ -1,9 +1,7 @@
 import json
-from treasure import Treasure
-from monster import Monster
 from tabulate import tabulate
 from time import sleep
-import random
+from room import Room
 
 
 class Player:
@@ -109,12 +107,9 @@ class GameMap:
             try:
                 for i in self.map:
                     print(' '.join(i))
-
-                option = input("\nChoose where to go\n\n1. Up\n2. Down\n3. Right\n4. Left\n")
                 i, j = self.coordinates()
-                visited_coord = self.visited_rooms()
-                print(visited_coord)
-
+                
+                option = input("\nChoose where to go\n\n1. Up\n2. Down\n3. Right\n4. Left\n")
                 if i == 0 and j == 3:
                     print("You found a room with the exit!")
                     choice = input("""Make your choice:
@@ -132,73 +127,56 @@ class GameMap:
                     if i-1 < 0:
                         print("\nYou cannot go there\n")
                     else:
+                        if "X" in self.map[i-1][j]:
+                            print("\nYou have already been in this room\n")
+                        else:
+                            room = Room()
+                            room.main_room(self.account)
                         self.map[i-1][j] = "[O]"
-                        self.new_monster()
-                        self.map[i][j] = "[X]"
+                        self.map[i][j] = "[X]"   
 
                 elif option == "2":
+                    if "X" in self.map[i+1][j]:
+                        print("\nYou have already been in this room\n")
+                    else:
+                        room = Room()
+                        room.main_room(self.account)
                     self.map[i+1][j] = "[O]"
-                    self.new_monster()
                     self.map[i][j] = "[X]"
+                    
 
                 elif option == "3":
+                    if "X" in self.map[i][j+1]:
+                        print("\nYou have already been in this room\n")
+                    else:
+                        room = Room()
+                        room.main_room(self.account)
                     self.map[i][j+1] = "[O]"
-                    self.new_monster()
                     self.map[i][j] = "[X]"
 
                 elif option == "4":
                     if j-1 < 0:
                         print("\nYou cannot go there\n")
                     else:
+                        if "X" in self.map[i][j-1]:
+                            print("\nYou have already been in this room\n")
+                        else:
+                            room = Room()
+                            room.main_room(self.account)
                         self.map[i][j-1] = "[O]"
-                        self.new_monster()
                         self.map[i][j] = "[X]"
-
+                        
                 else:
                     print("Not a valid option.")
 
             except IndexError:
-                print("\nYou cannot go there.")
+                print("\nYou cannot go there.\n")
 
     def coordinates(self):
         for i, column in enumerate(self.map):
             for j, row in enumerate(column):
                 if "O" in row:
                     return i, j
-
-    def visited_rooms(self):
-        visited_coord = []
-        for i, column in enumerate(self.map):
-            for j, row in enumerate(column):
-                if "X" in row:
-                    if (i, j) not in visited_coord:
-                        visited_coord.append((i, j))
-                    else:
-                        pass
-        return visited_coord
-
-    def new_monster(self):
-        monster = Monster.random_monster()
-        print("\nYou enter a new room")
-        sleep(1)
-        if len(monster) == 0:
-            print("This room has no monsters.")
-            self.new_treasure()
-        else:
-            print(f"A {' '.join(monster)} appeared")
-            self.new_treasure()
-            roll = random.randint(1, 6)
-            print(f"You rolled {roll}")
-
-    def new_treasure(self):
-        treasures = Treasure.random_treasure()
-        if treasures[1] == 0:
-            print("This room is empty")
-            input("Press any key to continue...\n")
-        else:
-            self.account["Treasure"] += treasures[1]
-            print(f"You have found {' '.join(treasures[0])} worth {treasures[1]} points")
-            input("Press any key to continue...\n")
 
     def exit_game(self):
         print("\nYou have found the exit!\n")
@@ -209,7 +187,6 @@ class GameMap:
                 data["Players"][i]["Treasure"] = self.account["Treasure"]
             with open("program\saved_games.json", "w") as f:
                 f.write(json.dumps(data, indent=4))
-
 
 def load_existing_account():
     with open("program\saved_games.json") as f:
@@ -234,18 +211,24 @@ def main_menu():
         if option == "1":
             hero = p.hero_choice()
             account = p.name_your_hero(hero)
-            size = int(input("\nChoose a map size by entering one of these numbers: 4,5,8: "))
-            g = GameMap(account, size)
-            g.room_menu()
+            size = input("\nChoose a map size by entering one of these numbers: 4,5,8: ")
+            if size == "4" or size == "5" or size == "8":
+                g = GameMap(account, int(size))
+                g.room_menu()
+            else:
+                print("This is not an option!")
 
         elif option == "2":
             account = load_existing_account()
             if account is None:
                 print("\nThere is no account by that name.\n")
             else:
-                size = int(input("\nChoose a map size by entering one of these numbers: 4,5,8: "))
-                g = GameMap(account, size)
-                g.room_menu()
+                size = input("\nChoose a map size by entering one of these numbers: 4,5,8: ")
+                if size == "4" or size == "5" or size == "8":
+                    g = GameMap(account, int(size))
+                    g.room_menu()
+                else:
+                    print("This is not an option!")
 
         elif option == "3":
             exit("Goodbye!")
