@@ -3,6 +3,7 @@ from monster import Monster, GiantSpider, Skeleton, Orc, Troll
 import json
 from time import sleep
 import random
+from character import Character, Knight, Wizard, Thief
 
 
 class Room():
@@ -10,7 +11,7 @@ class Room():
     def __init__(self, account) -> None:
         self.account = account
         self.hero_attributes = self.current_hero()
-        self.hero = self.account["Character"]
+        self.hero = "l"  # self.account["Character"]
 
     def wall(self):
         pass
@@ -31,7 +32,7 @@ class Room():
             dice = random.randint(1, 6)
             rolled_value += dice
         return rolled_value
-        
+
     def current_hero(self):
         if self.account["Character"] == "Knight":
             knight = {
@@ -81,17 +82,17 @@ class Room():
         elif monster == "Troll":
             monster_class = Troll()
             monster_initiative = self.dice(monster_class.initiative)
-        
-        hero_initiative = self.dice(self.hero_attributes["initiative"])        
+
+        hero_initiative = self.dice(self.hero_attributes["initiative"])
         if hero_initiative > monster_initiative:
             print(f"The {self.hero} gets the first strike!")
         else:
             print(f"The {monster} gets the first strike!")
 
         self.battle(hero_initiative, monster_initiative, monster_class)
-    
+
     def battle(self, hero_iniative, monster_initiative, monster_class):
-        
+
         if hero_iniative > monster_initiative:
             while True:
                 sleep(1)
@@ -169,3 +170,9 @@ class Room():
                     value["Treasure"] += treasures_value
                     with open("program\saved_games.json", "w") as f:
                         f.write(json.dumps(data, indent=4))
+
+
+character = Character.get_characters_list()
+print(character)
+for i in character:
+    print(i.name, i.initiative, i.endurance, i.attack, i.flexibility, i.special_ability)

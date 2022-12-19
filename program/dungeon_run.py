@@ -2,6 +2,8 @@ import json
 from tabulate import tabulate
 from time import sleep
 from room import Room
+import pyfiglet
+from character import Character, Knight, Wizard, Thief
 
 
 class Player:
@@ -48,6 +50,16 @@ class Player:
         elif choose_hero == "3":
             return "Thief"
 
+    def create_hero(self):
+        hero = self.hero_choice()
+        account = self.name_your_hero(hero)
+        size = input("\nChoose a map size by entering one of these numbers: 4,5,8: ")
+        if size == "4" or size == "5" or size == "8":
+            game_map = GameMap(account, int(size))
+            game_map.room_menu()
+        else:
+            print("This is not an option!")
+
 
 class GameMap:
     def __init__(self, account, size):
@@ -56,6 +68,13 @@ class GameMap:
         self.map = [["[ ]" for _ in range(self.size)] for _ in range(self.size)]
 
     def room_menu(self):
+        size = input("\nChoose a map size by entering one of these numbers: 4,5,8: ")
+        if size == "4" or size == "5" or size == "8":
+            game_map = GameMap(account, int(size))
+            game_map.room_menu()
+        else:
+            print("This is not an option!")
+
         for i in self.map:
             print(' '.join(i))
 
@@ -80,7 +99,7 @@ class GameMap:
                 for i in self.map:
                     print(' '.join(i))
                 i, j = self.coordinates()
-                
+
                 option = input("\nChoose where to go\n\n1. Up\n2. Down\n3. Right\n4. Left\n")
                 if i == 0 and j == 3:
                     print("You found a room with the exit!")
@@ -105,7 +124,7 @@ class GameMap:
                             room = Room(self.account)
                             room.main_room()
                         self.map[i-1][j] = "[O]"
-                        self.map[i][j] = "[X]"   
+                        self.map[i][j] = "[X]"
 
                 elif option == "2":
                     if "X" in self.map[i+1][j]:
@@ -115,7 +134,6 @@ class GameMap:
                         room.main_room()
                     self.map[i+1][j] = "[O]"
                     self.map[i][j] = "[X]"
-                    
 
                 elif option == "3":
                     if "X" in self.map[i][j+1]:
@@ -137,12 +155,24 @@ class GameMap:
                             room.main_room()
                         self.map[i][j-1] = "[O]"
                         self.map[i][j] = "[X]"
-                        
+
                 else:
                     print("Not a valid option.")
 
             except IndexError:
                 print("\nYou cannot go there.\n")
+
+    def navigate_mat(self, x, y):
+        if j-1 < 0:
+            print("\nYou cannot go there\n")
+        else:
+            if "X" in self.map[i+x][j+y]:
+                print("\nYou have already been in this room\n")
+            else:
+                room = Room(self.account)
+                room.main_room()
+            self.map[i+x][j+y] = "[O]"
+            self.map[i][j] = "[X]"
 
     def coordinates(self):
         for i, column in enumerate(self.map):
@@ -160,6 +190,7 @@ class GameMap:
             with open("program\saved_games.json", "w") as f:
                 f.write(json.dumps(data, indent=4))
 
+
 def load_existing_account():
     with open("program\saved_games.json") as f:
         data = json.load(f)
@@ -175,20 +206,25 @@ def load_existing_account():
 
 
 def main_menu():
-    p = Player()
+    print(pyfiglet.figlet_format("Dungeon run"))
     print("Welcome to the dungeon run!\nChoose your option and begin the adventure.\n")
     while True:
         option = input("1. Create a new hero\n2. Load existing hero\n3. Exit\n")
-
         if option == "1":
-            hero = p.hero_choice()
-            account = p.name_your_hero(hero)
-            size = input("\nChoose a map size by entering one of these numbers: 4,5,8: ")
-            if size == "4" or size == "5" or size == "8":
-                g = GameMap(account, int(size))
-                g.room_menu()
-            else:
-                print("This is not an option!")
+            player_name = input(enter your)
+            choose_hero = input('Choose your hero.\n1. The knight\n2. The Wizard\n3. The Thief\n')
+            characters = Character.get_characters_list()
+            for i in characters:
+                print(f"Name: {i.name}\n, Initiative {i.initiative}\n, Endurance: {i.endurance}, Attack: {i.attack}, Flexibility: {i.flexibility}, Special ability: {i.special_ability}")
+
+            if choose_hero == "1":
+                return Knight()
+
+            elif choose_hero == "2":
+                return Wizard()
+
+            elif choose_hero == "3":
+                return Thief()
 
         elif option == "2":
             account = load_existing_account()
@@ -197,8 +233,8 @@ def main_menu():
             else:
                 size = input("\nChoose a map size by entering one of these numbers: 4,5,8: ")
                 if size == "4" or size == "5" or size == "8":
-                    g = GameMap(account, int(size))
-                    g.room_menu()
+                    game_map = GameMap(account, int(size))
+                    game_map.room_menu()
                 else:
                     print("This is not an option!")
 

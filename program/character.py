@@ -1,5 +1,5 @@
 class Character:
-    def _init_(self, name, initiative, endurance, attack, flexibility, special_ability):
+    def __init__(self, name, initiative, endurance, attack, flexibility, special_ability):
         self.name = name
         self.initiative = initiative
         self.endurance = endurance
@@ -9,6 +9,10 @@ class Character:
 
     def __str__(self):
         return self.name
+
+    def get_characters_list():
+        list = [Knight(), Wizard(), Thief()]
+        return list
 
 
 class Knight(Character):
