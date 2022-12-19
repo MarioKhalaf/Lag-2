@@ -43,7 +43,6 @@ class Room():
             return wizard
         elif self.hero == 'Thief':
             return thief
-        
 
     def monster(self):
         monsters = Monster.random_monster()
@@ -55,6 +54,7 @@ class Room():
         option = input("Choose an option.\n1. Escape\n2. Attack\n")
         if option == "1":
             print("Returning to previous room...")
+
         else:
             self.first_attack(monster)
             random_treasures_list = self.treasures()
