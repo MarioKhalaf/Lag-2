@@ -11,7 +11,7 @@ class Player:
 
     def write_to_json(self, hero_name, hero):
         self.player["Name"] = hero_name
-        self.player["Character"] = hero["Hero"]
+        self.player["Character"] = hero
         self.player["Treasure"] = 0
 
         with open("program\saved_games.json") as f:
@@ -33,48 +33,20 @@ class Player:
         if self.check_name(hero_name):
             print("This name already exists.")
         else:
-            character = hero["Hero"]
-            print(f"\nHello {hero_name}, You have chosen the {character} ")
-            for key, value in hero.items():
-                print(f"{key}, {value}")
+            print(f"\nHello {hero_name}, You have chosen the {hero} ")
             self.write_to_json(hero_name, hero)
             return self.player
 
     def hero_choice(self):
         choose_hero = input('Choose your hero.\n1. The knight\n2. The Wizard\n3. The Thief\n')
-        heroes = [
-            {
-                "Hero": "Knight",
-                "Iniative": 5,
-                "Endurance": 9,
-                "Attack": 6,
-                "Flexibility": 4,
-                "health": 10
-            },
-            {
-                "Hero": "Wizard",
-                "Iniative": 6,
-                "Endurance": 4,
-                "Attack": 9,
-                "Flexibility": 5
-            },
-            {
-                "Hero": "Thief",
-                "Iniative": 7,
-                "Endurance": 5,
-                "Attack": 5,
-                "Flexibility": 7
-            }
-        ]
-
         if choose_hero == "1":
-            return heroes[0]
+            return "Knight"
 
         elif choose_hero == "2":
-            return heroes[1]
+            return "Wizard"
 
         elif choose_hero == "3":
-            return heroes[2]
+            return "Thief"
 
 
 class GameMap:
@@ -130,8 +102,8 @@ class GameMap:
                         if "X" in self.map[i-1][j]:
                             print("\nYou have already been in this room\n")
                         else:
-                            room = Room()
-                            room.main_room(self.account)
+                            room = Room(self.account)
+                            room.main_room()
                         self.map[i-1][j] = "[O]"
                         self.map[i][j] = "[X]"   
 
@@ -139,8 +111,8 @@ class GameMap:
                     if "X" in self.map[i+1][j]:
                         print("\nYou have already been in this room\n")
                     else:
-                        room = Room()
-                        room.main_room(self.account)
+                        room = Room(self.account)
+                        room.main_room()
                     self.map[i+1][j] = "[O]"
                     self.map[i][j] = "[X]"
                     
@@ -149,8 +121,8 @@ class GameMap:
                     if "X" in self.map[i][j+1]:
                         print("\nYou have already been in this room\n")
                     else:
-                        room = Room()
-                        room.main_room(self.account)
+                        room = Room(self.account)
+                        room.main_room()
                     self.map[i][j+1] = "[O]"
                     self.map[i][j] = "[X]"
 
@@ -161,8 +133,8 @@ class GameMap:
                         if "X" in self.map[i][j-1]:
                             print("\nYou have already been in this room\n")
                         else:
-                            room = Room()
-                            room.main_room(self.account)
+                            room = Room(self.account)
+                            room.main_room()
                         self.map[i][j-1] = "[O]"
                         self.map[i][j] = "[X]"
                         

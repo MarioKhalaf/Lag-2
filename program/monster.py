@@ -1,6 +1,5 @@
 import random
 
-
 class Monster:
     def __init__(self, name, initiative, endurance, attack, flexibility, probability):
         self.name = name
@@ -25,7 +24,7 @@ class Monster:
 class GiantSpider(Monster):
 
     def __init__(self):
-        super().__init__("Giant spider", 7, 1, 2, 3, 20)
+        super().__init__("GiantSpider", 7, 1, 2, 3, 20)
 
 
 class Skeleton(Monster):
