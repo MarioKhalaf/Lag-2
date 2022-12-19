@@ -33,7 +33,7 @@ class Room():
 
     def battle(self, monster):
         print("start battle")
-        print("Hi {monster}, my initiative is ")
+        print(f"Hi {monster.name}, my initiative is {monster.initiative}")
 
     def loose(self):
         pass
@@ -70,3 +70,8 @@ class Room():
                     value["Treasure"] += treasures_value
                     with open("program\saved_games.json", "w") as f:
                         f.write(json.dumps(data, indent=4))
+
+
+monsters = Monster.random_monster()
+for i in monsters:
+    print(f"Monster: {i.name} attack: {i.attack} initiative: {i.initiative}")
