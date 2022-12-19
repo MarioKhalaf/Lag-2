@@ -1,6 +1,7 @@
 import json
 from tabulate import tabulate
 from room import Room
+import pyfiglet
 
 
 class Player:
@@ -175,6 +176,7 @@ def load_existing_account():
 
 def main_menu():
     p = Player()
+    print(pyfiglet.figlet_format("Dungeon run"))
     print("Welcome to the dungeon run!\nChoose your option and begin the adventure.\n")
     while True:
         option = input("1. Create a new hero\n2. Load existing hero\n3. Exit\n")
