@@ -4,3 +4,4 @@ flake8
 tox
 pytest
 tabulate
+pyfiglet
