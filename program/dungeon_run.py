@@ -211,7 +211,7 @@ def main_menu():
     while True:
         option = input("1. Create a new hero\n2. Load existing hero\n3. Exit\n")
         if option == "1":
-            player_name = input(enter your)
+            player_name = input("enter your name")
             choose_hero = input('Choose your hero.\n1. The knight\n2. The Wizard\n3. The Thief\n')
             characters = Character.get_characters_list()
             for i in characters:

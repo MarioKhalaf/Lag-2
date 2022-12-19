@@ -170,9 +170,3 @@ class Room():
                     value["Treasure"] += treasures_value
                     with open("program\saved_games.json", "w") as f:
                         f.write(json.dumps(data, indent=4))
-
-
-character = Character.get_characters_list()
-print(character)
-for i in character:
-    print(i.name, i.initiative, i.endurance, i.attack, i.flexibility, i.special_ability)
