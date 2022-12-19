@@ -2,6 +2,7 @@ from treasure import Treasure
 from monster import Monster
 import json
 from time import sleep
+import random
 
 
 class Room():
@@ -27,20 +28,23 @@ class Room():
     def monster(self):
         # Returns a list of monsters.
         monsters = Monster.random_monster()
-        print(f"List of monsters {monsters}.")
+        print(f"List of monsters {monsters.name}, initiative {monsters.initiative}")
         return monsters
 
-    def battle(self):
-        pass
+    def battle(self, monster):
+        print("start battle")
+        print("Hi {monster}, my initiative is ")
 
     def loose(self):
         pass
 
+    def roll_dice(self):
+        roll = random.randint(1, 6)
+        print(f"You rolled {roll}")
+        return roll
+
     def win(self):
         pass
-
-    def main_room1(self):
-        print("You are in a room")
 
     def main_room(self, account):
         print("You enter a new room")
@@ -50,8 +54,9 @@ class Room():
             print("No monster in this room")
         else:
             for monster in monster_list:
-                # self.battle()
+                self.battle(monster)
                 print(monster)
+                print("monster namn", monster.name)
         random_treasures_list = self.treasures()
         self.save_treasures(random_treasures_list[1], account)
         print("Returning to map")

@@ -18,7 +18,7 @@ class Monster:
         random_monsters = []
         for monster in monster_list:
             if random.randint(0, 100) <= monster.probability:
-                random_monsters.append(monster.name)
+                random_monsters.append(monster)
         return (random_monsters)
 
 
