@@ -1,5 +1,5 @@
 class Character:
-    def _init_(self, name, initiative, endurance, attack, flexibility, special_ability):
+    def __init__(self, name, initiative, endurance, attack, flexibility, special_ability):
         self.name = name
         self.initiative = initiative
         self.endurance = endurance
@@ -15,7 +15,7 @@ class Knight(Character):
 
     def __init__(self):
         # Riddaren blockerar alltid första attacken per strid med sin sköld, och behöver därför varken undvika eller ta någon skada.
-        super().__init__("Knight", 5, 9, 6, 4, "Shield block")
+        super().__init__("Knight", 5, 1, 6, 4, "Shield block")
 
 
 class Wizard(Character):

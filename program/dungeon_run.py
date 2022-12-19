@@ -1,6 +1,5 @@
 import json
 from tabulate import tabulate
-from time import sleep
 from room import Room
 
 
@@ -75,8 +74,10 @@ class GameMap:
         self.path_options()
 
     def path_options(self):
+        previous_room = []
         while True:
             try:
+                previous_room.append(i, j)
                 for i in self.map:
                     print(' '.join(i))
                 i, j = self.coordinates()
@@ -137,7 +138,7 @@ class GameMap:
                             room.main_room()
                         self.map[i][j-1] = "[O]"
                         self.map[i][j] = "[X]"
-                        
+                
                 else:
                     print("Not a valid option.")
 
