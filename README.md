@@ -20,7 +20,12 @@ Robert Westins dokument:
 https://studentportal.nackademin.se/course/view.php?id=4169
 
 Trello:
-https://trello.com/b/1Z7Z7Z7Z/dungeon-run
+Sprint 1: https://trello.com/b/j5vzyaZa/dungeon-run-sprint-1
+
+Sprint 1 Retrospektiv 1: https://trello.com/b/QVSTNKDssprint-1-retrospektiv-1
+
+Sprint 2: https://trello.com/b/Jv5aJHD7/dungeon-run-sprint-2
+
 
 Github:
 https://github.com/MarioKhalaf/Lag-2
@@ -55,7 +60,7 @@ see <https://docs.python.org/3/library/venv.html>
 Linux / OSX
 
 ```sh
-python -m venv .venv  # could also be python3
+python -m venv .venv, could also be python3
 source .venv/bin/activate
 ```
 
@@ -69,8 +74,8 @@ python -m venv .venv
 Windows - PowerShell
 
 ```PowerShell
-# On Microsoft Windows, it may be required to enable the Activate.ps1 script by setting the execution policy for the user. You can do this by issuing the following PowerShell command:
-# Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+On Microsoft Windows, it may be required to enable the Activate.ps1 script by setting the execution policy for the user. You can do this by issuing the following PowerShell command:
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 
 py -m venv .venv
 .\.venv\Scripts\Activate.ps1

@@ -1,5 +1,6 @@
 import random
 
+
 class Monster:
     def __init__(self, name, initiative, endurance, attack, flexibility, probability):
         self.name = name
