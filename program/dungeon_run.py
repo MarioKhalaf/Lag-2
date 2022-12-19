@@ -1,7 +1,6 @@
 import json
 from tabulate import tabulate
 from room import Room
-import pyfiglet
 
 
 class Player:

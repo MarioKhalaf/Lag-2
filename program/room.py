@@ -57,6 +57,8 @@ class Room():
 
         else:
             self.first_attack(monster)
+            random_treasures_list = self.treasures()
+            self.save_treasures(random_treasures_list[1])
 
     def first_attack(self, monster):
         monster_initiative = self.dice(monster.initiative)
@@ -142,14 +144,14 @@ class Room():
             for monster in monster_list:
                 self.escape(monster)
 
-        random_treasures_list = self.treasures()
-        self.save_treasures(random_treasures_list[1])
-
     def save_treasures(self, treasures_value):
         with open("program\saved_games.json") as f:
             data = json.load(f)
             for value in data["Players"]:
                 if value["Name"] == self.account["Name"]:
+                    value["Treasure"] += treasures_value
+                    with open("program\saved_games.json", "w") as f:
+                        f.write(json.dumps(data, indent=4))
                     value["Treasure"] += treasures_value
                     with open("program\saved_games.json", "w") as f:
                         f.write(json.dumps(data, indent=4))

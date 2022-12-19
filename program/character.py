@@ -15,7 +15,7 @@ class Knight(Character):
 
     def __init__(self):
         # Riddaren blockerar alltid första attacken per strid med sin sköld, och behöver därför varken undvika eller ta någon skada.
-        super().__init__("Knight", 5, 1, 6, 4, "Shield block")
+        super().__init__("Knight", 5, 2, 6, 4, "Shield block")
 
 
 class Wizard(Character):
