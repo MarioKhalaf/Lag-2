@@ -74,14 +74,12 @@ class GameMap:
         self.path_options()
 
     def path_options(self):
-        previous_room = []
         while True:
             try:
-                previous_room.append(i, j)
                 for i in self.map:
                     print(' '.join(i))
                 i, j = self.coordinates()
-                
+
                 option = input("\nChoose where to go\n\n1. Up\n2. Down\n3. Right\n4. Left\n")
                 if i == 0 and j == 3:
                     print("You found a room with the exit!")
@@ -106,7 +104,7 @@ class GameMap:
                             room = Room(self.account)
                             room.main_room()
                         self.map[i-1][j] = "[O]"
-                        self.map[i][j] = "[X]"   
+                        self.map[i][j] = "[X]"
 
                 elif option == "2":
                     if "X" in self.map[i+1][j]:
@@ -116,7 +114,6 @@ class GameMap:
                         room.main_room()
                     self.map[i+1][j] = "[O]"
                     self.map[i][j] = "[X]"
-                    
 
                 elif option == "3":
                     if "X" in self.map[i][j+1]:
@@ -138,7 +135,7 @@ class GameMap:
                             room.main_room()
                         self.map[i][j-1] = "[O]"
                         self.map[i][j] = "[X]"
-                
+
                 else:
                     print("Not a valid option.")
 
@@ -160,6 +157,7 @@ class GameMap:
                 data["Players"][i]["Treasure"] = self.account["Treasure"]
             with open("program\saved_games.json", "w") as f:
                 f.write(json.dumps(data, indent=4))
+
 
 def load_existing_account():
     with open("program\saved_games.json") as f:
