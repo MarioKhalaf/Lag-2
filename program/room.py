@@ -8,11 +8,10 @@ import random
 
 class Room():
 
-    def __init__(self, account, previous_room) -> None:
+    def __init__(self, account) -> None:
         self.account = account
         self.hero = self.account["Character"]
         self.hero_class = self.current_hero()
-        self.previous_room = previous_room
 
     def wall(self):
         pass
@@ -44,7 +43,6 @@ class Room():
             return wizard
         elif self.hero == 'Thief':
             return thief
-        
 
     def monster(self):
         monsters = Monster.random_monster()
@@ -56,9 +54,11 @@ class Room():
         option = input("Choose an option.\n1. Escape\n2. Attack\n")
         if option == "1":
             print("Returning to previous room...")
-    
+
         else:
             self.first_attack(monster)
+            random_treasures_list = self.treasures()
+            self.save_treasures(random_treasures_list[1])
 
     def first_attack(self, monster):
         monster_initiative = self.dice(monster.initiative)
@@ -144,14 +144,14 @@ class Room():
             for monster in monster_list:
                 self.escape(monster)
 
-        random_treasures_list = self.treasures()
-        self.save_treasures(random_treasures_list[1])
-
     def save_treasures(self, treasures_value):
         with open("program\saved_games.json") as f:
             data = json.load(f)
             for value in data["Players"]:
                 if value["Name"] == self.account["Name"]:
+                    value["Treasure"] += treasures_value
+                    with open("program\saved_games.json", "w") as f:
+                        f.write(json.dumps(data, indent=4))
                     value["Treasure"] += treasures_value
                     with open("program\saved_games.json", "w") as f:
                         f.write(json.dumps(data, indent=4))

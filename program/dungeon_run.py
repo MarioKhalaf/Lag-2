@@ -74,10 +74,8 @@ class GameMap:
         self.path_options()
 
     def path_options(self):
-        previous_room = []
         while True:
             try:
-                previous_room.append(i, j)
                 for i in self.map:
                     print(' '.join(i))
                 i, j = self.coordinates()
