@@ -79,16 +79,26 @@ class Room():
                 hero_attack = self.dice(self.hero_class.attack)
                 monster_flex = self.dice(monster.flexibility)
                 if hero_attack > monster_flex:
-                    monster.endurance -= 1
-                    print(f"The {self.hero} hits the {monster.name}!")
+                    if self.hero_class.special_ability == "Critical hit":
+                        critical_hit = random.randint(1,4)
+                        if critical_hit == 1:
+                            monster.endurance -= 2
+                            print(f"The {self.hero} used his special ability do double damage.")
+                        else:
+                            monster.endurance -= 1
+                            print(f"The {self.hero} hits the {monster.name}!")
                     if monster.endurance == 0:
                         print(f"The {monster.name} has been defeated!")
                         break
                 else:
                     print(f"The {monster.name} blocked the attack.")
+                sleep(1)
                 monster_attack = self.dice(monster.attack)
                 hero_flex = self.dice(self.hero_class.flexibility)
-                if monster_attack > hero_flex:
+                if self.hero_class.special_ability == "Shield block":
+                    print(f"The {self.hero} used his special ability to block!.")
+                    self.hero_class.special_ability = ""
+                elif monster_attack > hero_flex:
                     self.hero_class.endurance -= 1
                     print(f"The {monster.name} hits the {self.hero}!")
                     if self.hero_class.endurance == 0:
@@ -103,7 +113,10 @@ class Room():
                 sleep(1)
                 monster_attack = self.dice(monster.attack)
                 hero_flex = self.dice(self.hero_class.flexibility)
-                if monster_attack > hero_flex:
+                if self.hero_class.special_ability == "Shield block":
+                    print(f"The {self.hero} used his special ability to block!.")
+                    self.hero_class.special_ability = ""
+                elif monster_attack > hero_flex:
                     print(f"The {monster.name} hits the {self.hero}!")
                     self.hero_class.endurance -= 1
                     if self.hero_class.endurance == 0:
@@ -113,12 +126,18 @@ class Room():
                         exit("Exiting...")
                 else:
                     print(f"The {self.hero} blocked the attack.")
-
+                sleep(1)
                 hero_attack = self.dice(self.hero_class.attack)
                 monster_flex = self.dice(monster.flexibility)
                 if hero_attack > monster_flex:
-                    print(f"The {self.hero} hits the {monster.name}!")
-                    monster.endurance -= 1
+                    if self.hero_class.special_ability == "Critical hit":
+                        critical_hit = random.randint(1,4)
+                        if critical_hit == 1:
+                            monster.endurance -= 2
+                            print(f"The {self.hero} used his special ability do double damage.")
+                        else:
+                            monster.endurance -= 1
+                            print(f"The {self.hero} hits the {monster.name}!")
                     if monster.endurance == 0:
                         print(f"The {monster.name} has been defeated!")
                         break
