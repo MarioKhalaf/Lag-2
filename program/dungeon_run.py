@@ -1,6 +1,7 @@
 import json
 from tabulate import tabulate
 from room import Room
+import pyfiglet
 
 
 class Player:
@@ -135,7 +136,6 @@ class GameMap:
                             room.main_room()
                         self.map[i][j-1] = "[O]"
                         self.map[i][j] = "[X]"
-
                 else:
                     print("Not a valid option.")
 
