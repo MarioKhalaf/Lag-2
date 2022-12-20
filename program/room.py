@@ -13,12 +13,6 @@ class Room():
         self.hero = self.account["Character"]
         self.hero_class = self.current_hero()
 
-    def wall(self):
-        pass
-
-    def door(self):
-        pass
-
     def treasures(self):
         # if self.monster = False
         # Returns a tuple With a list of treasure and total value of treasure.
@@ -65,8 +59,7 @@ class Room():
 
         else:
             self.first_attack(monster)
-            random_treasures_list = self.treasures()
-            self.save_treasures(random_treasures_list[1])
+            
 
     def first_attack(self, monster):
         monster_initiative = self.dice(monster.initiative)
@@ -154,15 +147,6 @@ class Room():
                 else:
                     print(f"The {monster.name} blocked the attack.")
 
-    def loose(self):
-        pass
-
-    def win(self):
-        pass
-
-    def main_room1(self):
-        print("You are in a room")
-
     def main_room(self):
         print("You enter a new room")
         sleep(1)
@@ -172,6 +156,8 @@ class Room():
         else:
             for monster in monster_list:
                 self.escape(monster)
+        random_treasures_list = self.treasures()
+        self.save_treasures(random_treasures_list[1])
 
     def save_treasures(self, treasures_value):
         with open("program\saved_games.json") as f:
