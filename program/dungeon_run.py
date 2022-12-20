@@ -59,9 +59,8 @@ class GameMap:
         for i in self.map:
             print(' '.join(i))
 
-        print("\nChoose the starting place for your hero.\n\n1. corner 1\n2. corner 2\n3. corner 3\n4. corner 4\nQ. Exit\n")
+        print("\nChoose the starting place for your hero.\n\n1. corner 1\n2. corner 2\n3. corner 3\n4. corner 4\nQ. Exit the game\n")
         choice = input('Your choice: ').lower()
-        print(f"\nYou will begin the game at corner {choice}\n")
 
         if choice == "1":
             self.map[0][0] = "[O]"
@@ -71,6 +70,9 @@ class GameMap:
             self.map[self.size-1][0] = "[O]"
         elif choice == "4":
             self.map[self.size-1][self.size-1] = "[O]"
+        elif choice == "q":
+            exit("Exiting the game...")
+        print(f"\nYou will begin the game at corner {choice}\n")
 
         self.path_options()
 
@@ -83,10 +85,10 @@ class GameMap:
 
                 option = input("\nChoose where to go\n\n1. Up\n2. Down\n3. Right\n4. Left\n")
                 if i == 0 and j == 3:
-                    print("You found a room with the exit!")
-                    choice = input("""Make your choice:
-                                1. Quit the game
-                                2. Go to another room
+                    print("You win! You found the exit!")
+                    choice = input("""Do you wish to stay and continue?
+                                1. Exit
+                                2. Continue the adventure.
                                 """)
                     if choice == "1":
                         self.exit_game()
