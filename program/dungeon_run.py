@@ -54,6 +54,7 @@ class GameMap:
         self.account = account
         self.size = size
         self.map = [["[ ]" for _ in range(self.size)] for _ in range(self.size)]
+        self.last_room_coordinates = []
 
     def room_menu(self):
         for i in self.map:
@@ -94,6 +95,8 @@ class GameMap:
                     elif choice == "2":
                         self.map[i+1][j] = "[O]"
                         self.map[i][j] = "[X]"
+                        self.last_room_coordinates.append(self.coordinates())
+                        print(self.last_room_coordinates)
 
                 elif option == "1":
                     if i-1 < 0:
@@ -102,28 +105,34 @@ class GameMap:
                         if "X" in self.map[i-1][j]:
                             print("\nYou have already been in this room\n")
                         else:
-                            room = Room(self.account)
+                            room = Room(self.account, self.last_room_coordinates)
                             room.main_room()
                         self.map[i-1][j] = "[O]"
                         self.map[i][j] = "[X]"
+                        self.last_room_coordinates.append(self.coordinates())
+                        print(self.last_room_coordinates)
 
                 elif option == "2":
                     if "X" in self.map[i+1][j]:
                         print("\nYou have already been in this room\n")
                     else:
-                        room = Room(self.account)
+                        room = Room(self.account, self.last_room_coordinates)
                         room.main_room()
                     self.map[i+1][j] = "[O]"
                     self.map[i][j] = "[X]"
+                    self.last_room_coordinates.append(self.coordinates())
+                    print(self.last_room_coordinates)
 
                 elif option == "3":
                     if "X" in self.map[i][j+1]:
                         print("\nYou have already been in this room\n")
                     else:
-                        room = Room(self.account)
+                        room = Room(self.account, self.last_room_coordinates)
                         room.main_room()
                     self.map[i][j+1] = "[O]"
                     self.map[i][j] = "[X]"
+                    self.last_room_coordinates.append(self.coordinates())
+                    print(self.last_room_coordinates)
 
                 elif option == "4":
                     if j-1 < 0:
@@ -132,10 +141,12 @@ class GameMap:
                         if "X" in self.map[i][j-1]:
                             print("\nYou have already been in this room\n")
                         else:
-                            room = Room(self.account)
+                            room = Room(self.account, self.last_room_coordinates)
                             room.main_room()
                         self.map[i][j-1] = "[O]"
                         self.map[i][j] = "[X]"
+                        self.last_room_coordinates.append(self.coordinates())
+                        print(self.last_room_coordinates)
                 else:
                     print("Not a valid option.")
 

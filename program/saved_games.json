@@ -19,6 +19,21 @@
             "Name": "Hej",
             "Character": "Wizard",
             "Treasure": 158
+        },
+        {
+            "Name": "L",
+            "Character": "Knight",
+            "Treasure": 0
+        },
+        {
+            "Name": "H",
+            "Character": "Knight",
+            "Treasure": 0
+        },
+        {
+            "Name": "D",
+            "Character": "Knight",
+            "Treasure": 0
         }
     ]
 }

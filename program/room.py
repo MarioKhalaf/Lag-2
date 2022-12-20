@@ -8,10 +8,11 @@ import random
 
 class Room():
 
-    def __init__(self, account) -> None:
+    def __init__(self, account, last_room_coordinates) -> None:
         self.account = account
         self.hero = self.account["Character"]
         self.hero_class = self.current_hero()
+        self.last_room_coordinates = last_room_coordinates
 
     def wall(self):
         pass
@@ -80,7 +81,7 @@ class Room():
                 monster_flex = self.dice(monster.flexibility)
                 if hero_attack > monster_flex:
                     if self.hero_class.special_ability == "Critical hit":
-                        critical_hit = random.randint(1,4)
+                        critical_hit = random.randint(1, 4)
                         if critical_hit == 1:
                             monster.endurance -= 2
                             print(f"The {self.hero} used his special ability do double damage.")
@@ -131,7 +132,7 @@ class Room():
                 monster_flex = self.dice(monster.flexibility)
                 if hero_attack > monster_flex:
                     if self.hero_class.special_ability == "Critical hit":
-                        critical_hit = random.randint(1,4)
+                        critical_hit = random.randint(1, 4)
                         if critical_hit == 1:
                             monster.endurance -= 2
                             print(f"The {self.hero} used his special ability do double damage.")
@@ -156,12 +157,14 @@ class Room():
     def main_room(self):
         print("You enter a new room")
         sleep(1)
+        print(self.last_room_coordinates[-1])
         monster_list = self.monster()
         if len(monster_list) == 0:
             print("No monster in this room")
         else:
             for monster in monster_list:
-                self.escape(monster)
+                # self.escape(monster)
+                print(monster)
 
     def save_treasures(self, treasures_value):
         with open("program\saved_games.json") as f:
