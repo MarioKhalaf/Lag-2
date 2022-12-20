@@ -11,4 +11,4 @@ class Player:
         self.special_ability = special_ability
 
     def __str__(self):
-        return self.player_name, self.treasure, self.character_name, self.initiative, self.endurance, self.attack, self.flexibility, self.special_ability
+        return self.player_name, self.treasure, self.character_name, self.initiative, self.endurance
