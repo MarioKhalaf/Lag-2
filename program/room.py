@@ -53,7 +53,15 @@ class Room():
     def escape(self, monster):
         option = input("Choose an option.\n1. Escape\n2. Attack\n")
         if option == "1":
-            print("Returning to previous room...")
+            if self.hero_class.special_ability == "Shining light":
+                escape_chance = 80
+            else:
+                escape_chance = self.hero_class.flexibility * 10  
+            if random.randint(0, 100) <= escape_chance:
+                print("You managed to escape. Returning to previous room...")
+            else:
+                print("Escape failed, prepare for battle!")
+                self.battle(5, 10, monster)
 
         else:
             self.first_attack(monster)
@@ -71,22 +79,23 @@ class Room():
 
         self.battle(hero_initiative, monster_initiative, monster)
 
-    def battle(self, hero_iniative, monster_initiative, monster):
+    def battle(self, hero_initiative, monster_initiative, monster):
 
-        if hero_iniative > monster_initiative:
+        if hero_initiative > monster_initiative:
             while True:
                 sleep(1)
                 hero_attack = self.dice(self.hero_class.attack)
                 monster_flex = self.dice(monster.flexibility)
                 if hero_attack > monster_flex:
-                    if self.hero_class.special_ability == "Critical hit":
-                        critical_hit = random.randint(1,4)
-                        if critical_hit == 1:
-                            monster.endurance -= 2
-                            print(f"The {self.hero} used his special ability do double damage.")
-                        else:
-                            monster.endurance -= 1
-                            print(f"The {self.hero} hits the {monster.name}!")
+                    if self.hero_class.special_ability == "Critical hit" and random.randint(1,4) == 1:
+                        monster.endurance -= 2
+                        print(f"The {self.hero} used his special ability do double damage.")
+                        if monster.endurance == 0:
+                            print(f"The {monster.name} has been defeated!")
+                            break
+                    else:
+                        monster.endurance -= 1
+                        print(f"The {self.hero} hits the {monster.name}!")
                     if monster.endurance == 0:
                         print(f"The {monster.name} has been defeated!")
                         break
@@ -130,17 +139,18 @@ class Room():
                 hero_attack = self.dice(self.hero_class.attack)
                 monster_flex = self.dice(monster.flexibility)
                 if hero_attack > monster_flex:
-                    if self.hero_class.special_ability == "Critical hit":
-                        critical_hit = random.randint(1,4)
-                        if critical_hit == 1:
-                            monster.endurance -= 2
-                            print(f"The {self.hero} used his special ability do double damage.")
-                        else:
-                            monster.endurance -= 1
-                            print(f"The {self.hero} hits the {monster.name}!")
-                    if monster.endurance == 0:
-                        print(f"The {monster.name} has been defeated!")
+                    if self.hero_class.special_ability == "Critical hit" and random.randint(1,4) == 1:
+                        monster.endurance -= 2
+                        print(f"The {self.hero} used his special ability do double damage.")
+                        if monster.endurance == 0:
+                            print(f"The {monster.name} has been defeated!")
                         break
+                    else:
+                        monster.endurance -= 1
+                        print(f"The {self.hero} hits the {monster.name}!") 
+                        if monster.endurance == 0:
+                            print(f"The {monster.name} has been defeated!")
+                            break
                 else:
                     print(f"The {monster.name} blocked the attack.")
 
